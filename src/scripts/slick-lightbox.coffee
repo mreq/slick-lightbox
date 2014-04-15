@@ -81,7 +81,7 @@ class SlickLightbox
 		# Optional bindings
 		if @options.closeOnEscape or @options.navigateByKeyboard
 			# Close on ESC key
-			$(window).on 'keydown.slickLightbox', (e) =>
+			$(document).on 'keydown.slickLightbox', (e) =>
 				code = if e.keyCode then e.keyCode else e.which
 				if @options.navigateByKeyboard
 					if code is 37

@@ -125,3 +125,10 @@ $.fn.unslickLightbox = function(options) {
 };
 );
 };
+.slickLightbox = new SlickLightbox(this, options);
+};
+
+$.fn.unslickLightbox = function(options) {
+  return this.slickLightbox.destroy(true);
+};
+;
