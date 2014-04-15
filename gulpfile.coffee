@@ -15,19 +15,19 @@ paths =
 gulp.task 'coffee', ->
 	gulp
 		.src paths.coffee
-		.pipe(coffee( bare: true ).on('error', gutil.log))
+		.pipe coffee( bare: true ).on('error', gutil.log)
 		.pipe gulp.dest './src/scripts/'
 
 gulp.task 'uglify', ->
 	gulp
 		.src paths.uglify
-		.pipe(uglify())
+		.pipe uglify()
 		.pipe gulp.dest './dist/'
 
 gulp.task 'less', ->
 	gulp
 		.src paths.less
-		.pipe(less( compress: true ).on('error', gutil.log))
+		.pipe less( compress: true )
 		.pipe gulp.dest './src/styles/'
 #############################
 gulp.task 'watch', ->
@@ -42,7 +42,7 @@ gulp.task 'build', ->
 	gulp.start 'uglify'
 
 gulp.task 'server', ->
-	gulp.start 'watch'
+	gulp.start 'coffee', 'less', 'watch'
 	http
 		.createServer ecstatic( root: __dirname + '/src' )
 		.listen 9000
