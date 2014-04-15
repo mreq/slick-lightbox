@@ -37,7 +37,7 @@ class SlickLightbox
 				links.push createItem el
 
 		html = """
-		<div class="slick-lightbox slick-hide">
+		<div class="slick-lightbox slick-hide-init" style="background: #{ @options.background };">
 			<div class="slick-lightbox-inner">
 				<div class="slick-lightbox-slick">#{ links.join('') }</div>
 				<button type="button" class="slick-lightbox-close"></button>
@@ -60,7 +60,7 @@ class SlickLightbox
 		@modalElement.trigger 'init.slickLightbox'
 	open: ->
 		### Opens the lightbox. ###
-		@modalElement.removeClass('slick-hide')
+		@modalElement.removeClass('slick-hide-init')
 	close: ->
 		### Closes the lightbox and destroys it, maintaining the original element bindings. ###
 		@modalElement.addClass('slick-hide')
@@ -106,7 +106,7 @@ class SlickLightbox
 		# Let transitions take effect
 		setTimeout (=>
 			@modalElement.remove()
-		), 500
+		), @options.destroyTimeout
 		if unbindAnchors
 			@element.off '.slickLightbox'
 	destroyPrevious: ->
@@ -115,9 +115,11 @@ class SlickLightbox
 
 # jQuery defaults
 defaults =
-	slick: {}
+	background: 'rgba(0,0,0,.8)'
 	closeOnEscape: true
+	destroyTimeout: 500
 	navigateByKeyboard: true
+	slick: {}
 # jQuery method
 $.fn.slickLightbox = (options) ->
 	options = $.extend {}, defaults, options
