@@ -12,20 +12,30 @@ class SlickLightbox
 		### Binds the plugin. ###
 		@element = $(element)
 		@options ?= {}
-		@element.on 'click.slickLightbox', 'a', (e) =>
+		that = @
+		@element.on 'click.slickLightbox', 'a', (e) ->
 			e.preventDefault()
-			@init()
-	init: ->
-		### Creates the lightbox, opens it, binds events and calls `slick`. ###
+			that.init that.element.find('a').index($(this))
+	init: (index) ->
+		### Creates the lightbox, opens it, binds events and calls `slick`. Accepts `index` of the element, that triggered it (so that we know, on which slide to start slick). ###
 		# @destroyPrevious()
-		@createModal()
+		@createModal(index)
 		@open()
 		@bindEvents()
 		@slick()
-	createModal: ->
-		### Creates a `slick`-friendly modal with a simple `ul`. ###
-		links = $.map @element.find('a'), (el) ->
+	createModal: (index = 0) ->
+		### Creates a `slick`-friendly modal. Rearranges the items so that the `index`-th item is placed first. ###
+		createItem = (el) ->
 			"""<div class="slick-lightbox-slick-item"><img class="slick-lightbox-slick-img" src="#{ el.href }" /></div>"""
+		# We need to start with the `index`-th item.
+		a = @element.find('a')
+		if index is 0 or index is -1
+			links = $.map a, createItem
+		else
+			links = $.map a.slice(index), createItem
+			$.each a.slice(0, index), (i, el) ->
+				links.push createItem el
+
 		html = """
 		<div class="slick-lightbox slick-hide">
 			<div class="slick-lightbox-inner">
@@ -36,15 +46,17 @@ class SlickLightbox
 		"""
 		@modalElement = $(html)
 		$('body').append @modalElement
-	slick: ->
+	slick: (index) ->
 		### Runs slick by default, using `options.slick` if provided. If `options.slick` is a function, it gets fired instead of us initializing slick. ###
 		if @options.slick?
 			if typeof @options.slick is 'function'
+				# TODO: support element's index
 				@options.slick @modalElement
 			else
-				@modalElement.find('.slick-lightbox-slick').slick @options.slick
+				@slick = @modalElement.find('.slick-lightbox-slick').slick @options.slick
+
 		else
-			@modalElement.find('.slick-lightbox-slick').slick()
+			@slick = @modalElement.find('.slick-lightbox-slick').slick()
 		@modalElement.trigger 'init.slickLightbox'
 	open: ->
 		### Opens the lightbox. ###
