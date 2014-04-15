@@ -13,9 +13,9 @@ class SlickLightbox
 		### Binds the plugin. ###
 		@element = $(element)
 		that = @
-		@element.on 'click.slickLightbox', 'a', (e) ->
+		@element.on 'click.slickLightbox', @options.itemSelector, (e) ->
 			e.preventDefault()
-			that.init that.element.find('a').index($(this))
+			that.init that.element.find(that.options.itemSelector).index($(this))
 	init: (index) ->
 		### Creates the lightbox, opens it, binds events and calls `slick`. Accepts `index` of the element, that triggered it (so that we know, on which slide to start slick). ###
 		# @destroyPrevious()
@@ -28,7 +28,7 @@ class SlickLightbox
 		createItem = (el) ->
 			"""<div class="slick-lightbox-slick-item"><img class="slick-lightbox-slick-img" src="#{ el.href }" /></div>"""
 		# We need to start with the `index`-th item.
-		a = @element.find('a')
+		a = @element.find(@options.itemSelector)
 		if index is 0 or index is -1
 			links = $.map a, createItem
 		else
@@ -118,6 +118,7 @@ defaults =
 	background: 'rgba(0,0,0,.8)'
 	closeOnEscape: true
 	destroyTimeout: 500
+	itemSelector: 'a'
 	navigateByKeyboard: true
 	slick: {}
 # jQuery method
