@@ -82,3 +82,46 @@ $.fn.slickLightbox = function(options) {
 $.fn.unslickLightbox = function(options) {
   return this.slickLightbox.destroy(true);
 };
+Anchors) {
+    if (unbindAnchors == null) {
+      unbindAnchors = false;
+    }
+
+    /* Destroys the lightbox and unbinds global events. If `true` is passed as an argument, unbinds the original element as well. */
+    this.unbindEvents();
+    setTimeout(((function(_this) {
+      return function() {
+        return _this.modalElement.remove();
+      };
+    })(this)), 500);
+    if (unbindAnchors) {
+      return this.element.off('.slickLightbox');
+    }
+  };
+
+  SlickLightbox.prototype.destroyPrevious = function() {
+
+    /* Destroys lightboxes currently in DOM. */
+    return $('body').children('.slick-lightbox').trigger('destroy.slickLightbox');
+  };
+
+  return SlickLightbox;
+
+})();
+
+defaults = {
+  slick: {},
+  closeOnEscape: true,
+  navigateByArrows: true
+};
+
+$.fn.slickLightbox = function(options) {
+  options = $.extend({}, defaults, options);
+  return this.slickLightbox = new SlickLightbox(this, options);
+};
+
+$.fn.unslickLightbox = function(options) {
+  return this.slickLightbox.destroy(true);
+};
+);
+};

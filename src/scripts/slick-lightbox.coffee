@@ -1,3 +1,4 @@
+'use strict'
 ###
 # SlickLightbox documentation #
 
@@ -11,7 +12,6 @@ class SlickLightbox
 	constructor: (element, @options) ->
 		### Binds the plugin. ###
 		@element = $(element)
-		@options ?= {}
 		that = @
 		@element.on 'click.slickLightbox', 'a', (e) ->
 			e.preventDefault()
@@ -20,10 +20,10 @@ class SlickLightbox
 		### Creates the lightbox, opens it, binds events and calls `slick`. Accepts `index` of the element, that triggered it (so that we know, on which slide to start slick). ###
 		# @destroyPrevious()
 		@createModal(index)
-		@open()
 		@bindEvents()
-		@slick()
-	createModal: (index = 0) ->
+		@initSlick()
+		@open()
+	createModal: (index) ->
 		### Creates a `slick`-friendly modal. Rearranges the items so that the `index`-th item is placed first. ###
 		createItem = (el) ->
 			"""<div class="slick-lightbox-slick-item"><img class="slick-lightbox-slick-img" src="#{ el.href }" /></div>"""
@@ -46,7 +46,7 @@ class SlickLightbox
 		"""
 		@modalElement = $(html)
 		$('body').append @modalElement
-	slick: (index) ->
+	initSlick: (index) ->
 		### Runs slick by default, using `options.slick` if provided. If `options.slick` is a function, it gets fired instead of us initializing slick. ###
 		if @options.slick?
 			if typeof @options.slick is 'function'
@@ -67,30 +67,60 @@ class SlickLightbox
 		@destroy()
 	bindEvents: ->
 		### Binds global events. ###
+		# Slides size needs to be 100%, which can't be achieved easily via CSS on floated elements.
 		resizeSlides = =>
 			@modalElement.find('.slick-lightbox-slick-item').height @modalElement.find('.slick-lightbox-inner').height()
 		$(window).on 'orientationchange.slickLightbox resize.slickLightbox', resizeSlides
 		@modalElement.on 'init.slickLightbox', resizeSlides
+		# Destroy event triggered by other instances
 		@modalElement.on 'destroy.slickLightbox', => @destroy()
+		# Close button
 		@modalElement.on 'click.slickLightbox touchstart.slickLightbox', '.slick-lightbox-close', (e) =>
 			e.preventDefault()
 			@close()
+		# Optional bindings
+		if @options.closeOnEscape or @options.navigateByKeyboard
+			# Close on ESC key
+			$(window).on 'keydown.slickLightbox', (e) =>
+				code = if e.keyCode then e.keyCode else e.which
+				if @options.navigateByKeyboard
+					if code is 37
+						@slideSlick 'left'
+					else if code is 39
+						@slideSlick 'right'
+				if @options.closeOnEscape
+					@close()  if code is 27
+	slideSlick: (direction) ->
+		if direction is 'left'
+			@slick.slickPrev()
+		else
+			@slick.slickNext()
 	unbindEvents: ->
 		### Unbinds global events. ###
 		$(window).off '.slickLightbox'
+		$(document).off '.slickLightbox'
 		@modalElement.off '.slickLightbox'
 	destroy: (unbindAnchors = false) ->
 		### Destroys the lightbox and unbinds global events. If `true` is passed as an argument, unbinds the original element as well. ###
 		@unbindEvents()
-		@modalElement.remove()
+		# Let transitions take effect
+		setTimeout (=>
+			@modalElement.remove()
+		), 500
 		if unbindAnchors
 			@element.off '.slickLightbox'
 	destroyPrevious: ->
 		### Destroys lightboxes currently in DOM. ###
 		$('body').children('.slick-lightbox').trigger 'destroy.slickLightbox'
 
+# jQuery defaults
+defaults =
+	slick: {}
+	closeOnEscape: true
+	navigateByKeyboard: true
 # jQuery method
 $.fn.slickLightbox = (options) ->
+	options = $.extend {}, defaults, options
 	this.slickLightbox = new SlickLightbox this, options
 $.fn.unslickLightbox = (options) ->
 	this.slickLightbox.destroy(true)

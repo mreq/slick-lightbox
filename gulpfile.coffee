@@ -6,6 +6,7 @@ gutil    = require 'gulp-util'
 coffee   = require 'gulp-coffee'
 less     = require 'gulp-less'
 uglify   = require 'gulp-uglify'
+shell    = require 'gulp-shell'
 #############################
 paths =
 	less: './src/styles/*.less'
@@ -18,17 +19,19 @@ gulp.task 'coffee', ->
 		.pipe coffee( bare: true ).on('error', gutil.log)
 		.pipe gulp.dest './src/scripts/'
 
+gulp.task 'less', ->
+	gulp
+		.src paths.less
+		.pipe less( compress: true )
+		.pipe gulp.dest './src/styles/'
+#############################
 gulp.task 'uglify', ->
 	gulp
 		.src paths.uglify
 		.pipe uglify()
 		.pipe gulp.dest './dist/'
 
-gulp.task 'less', ->
-	gulp
-		.src paths.less
-		.pipe less( compress: true )
-		.pipe gulp.dest './src/styles/'
+gulp.task 'coffeedoc', shell.task(['coffeedoc ./src/scripts/slick-lightbox.coffee'])
 #############################
 gulp.task 'watch', ->
 	gulp.watch paths.coffee, ['coffee']
@@ -39,7 +42,7 @@ gulp.task 'build', ->
 	gulp
 		.src ['./src/scripts/slick-lightbox.js', './src/styles/slick-lightbox.css']
 		.pipe gulp.dest './dist/'
-	gulp.start 'uglify'
+	gulp.start 'uglify', 'coffeedoc'
 
 gulp.task 'server', ->
 	gulp.start 'coffee', 'less', 'watch'
