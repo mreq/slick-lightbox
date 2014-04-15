@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>slick lightbox</title>
+	<link rel="stylesheet" type="text/css" href="/bower_components/slick-carousel/slick/slick.css">
+	<link rel="stylesheet" type="text/css" href="/styles/slick-lightbox.css">
+</head>
+<body>
+	<div>
+		<ul>
+			<li><a href="http://placekitten.com/600/300">http://placekitten.com/600/300</a></li>
+			<li><a href="http://placekitten.com/630/280">http://placekitten.com/630/280</a></li>
+			<li><a href="http://placekitten.com/500/250">http://placekitten.com/500/250</a></li>
+			<li><a href="http://placekitten.com/700/350">http://placekitten.com/700/350</a></li>
+			<li><a href="http://placekitten.com/450/800">http://placekitten.com/450/800</a></li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="/bower_components/slick-carousel/slick/slick.js"></script>
+	<script type="text/javascript" src="/scripts/slick-lightbox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('ul').slickLightbox();
+		});
+	</script>
+</body>
+</html>

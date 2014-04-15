@@ -1,0 +1,11 @@
+{
+  "name": "slick-lightbox",
+  "version": "0.0.0",
+  "devDependencies": {
+    "gulp": "~3.6",
+    "gulp-coffee": "~1.4.1",
+    "gulp-less": "~1.2.3",
+    "ecstatic": "~0.5.1",
+    "coffee-script": "~1.7.1"
+  }
+}
