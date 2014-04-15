@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="chrome=1" http-equiv="X-UA-Compatible"><title>Slick-lightbox by mreq</title><link href="gh-pages/stylesheets/styles.css" rel="stylesheet"><link href="gh-pages/stylesheets/pygment_trac.css" rel="stylesheet"><meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"><!--if lt IE 9script(src='//html5shiv.googlecode.com/svn/trunk/html5.js')--></head><body><div class="wrapper"><header><h1>Slick-lightbox</h1><p>A lightbox wrapper for Ken's amazing slick carousel - http://github.com/kenwheeler/slick.</p><p class="view"><a href="https://github.com/mreq/slick-lightbox">View the Project on GitHub<small>mreq/slick-lightbox</small></a></p><ul><li><a href="https://github.com/mreq/slick-lightbox/zipball/master">Download<strong>ZIP File</strong></a></li><li><a href="https://github.com/mreq/slick-lightbox/tarball/master">Download<strong>TAR Ball</strong></a></li><li><a href="https://github.com/mreq/slick-lightbox">View On<strong>GitHub</strong></a></li></ul></header><section><h1 id="slick-lightbox">slick-lightbox</h1>
+<p><strong>a work in progress</strong></p>
+<p>Credits go to <a href="https://github.com/kenwheeler">kenwheeler</a> for doing the <a href="https://github.com/kenwheeler/slick">hard work</a>.</p>
+<h2 id="usage">Usage</h2>
+<p>Make sure you include CSS for both slick and slick-lightbox. Example HTML:</p>
+<pre><code class="lang-html">&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://placekitten.com/600/300&quot;&gt;I like kittens.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://placekitten.com/630/280&quot;&gt;Do you like kittens?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://placekitten.com/500/250&quot;&gt;Thank you placekitten.com.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;path/to/jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;path/to/slick.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;path/to/slick-lightbox.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function(){
+    $(&#39;ul&#39;).slickLightbox({
+      itemSelector: &#39;&gt; li &gt; a&#39;
+    });
+  });
+&lt;/script&gt;
+</code></pre>
+<h2 id="options">Options</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>background</td>
+<td>string</td>
+<td>rgba(0,0,0,.8)</td>
+<td>Background for the lightbox. Is used directly as a CSS <code>background</code> statement so that color and/or an image can be used.</td>
+</tr>
+<tr>
+<td>closeOnEscape</td>
+<td>boolean</td>
+<td>true</td>
+<td>Should the lightbox close upon pressing ESC?</td>
+</tr>
+<tr>
+<td>destroyTimeout</td>
+<td>integer</td>
+<td>500</td>
+<td>How many ms should we wait before actually removing the lightbox from the DOM? The default is used so that a 0.5s opacity transition can take place.</td>
+</tr>
+<tr>
+<td>itemSelector</td>
+<td>string</td>
+<td>a</td>
+<td>jQuery-like selector for the carousel-to-create items. The items should be anchors with <code>href</code> attribute aiming at the desired lightbox image.</td>
+</tr>
+<tr>
+<td>navigateByKeyboard</td>
+<td>boolean</td>
+<td>true</td>
+<td>Can you use keyboard arrows to navigate the carousel?</td>
+</tr>
+<tr>
+<td>slick</td>
+<td>object</td>
+<td>{}</td>
+<td>Slick options to pass to the carousel.</td>
+</tr>
+</tbody>
+</table>
+</section><footer><p>This project is maintained by<a href="https://github.com/mreq">mreq</a></p><p><small>Hosted on GitHub Pages — Theme by<a href="https://github.com/orderedlist">orderedlist</a></small></p></footer></div><script src="gh-pages/javascripts/scale.fix.js"></script></body></html>

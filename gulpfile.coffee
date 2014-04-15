@@ -32,6 +32,7 @@ gulp.task 'uglify', ->
 		.pipe gulp.dest './dist/'
 
 gulp.task 'coffeedoc', shell.task(['coffeedoc ./src/scripts/slick-lightbox.coffee'])
+gulp.task 'buildGHPages', shell.task(['jade index.jade'])
 #############################
 gulp.task 'watch', ->
 	gulp.watch paths.coffee, ['coffee']
@@ -42,7 +43,7 @@ gulp.task 'build', ->
 	gulp
 		.src ['./src/scripts/slick-lightbox.js', './src/styles/slick-lightbox.css']
 		.pipe gulp.dest './dist/'
-	gulp.start 'uglify', 'coffeedoc'
+	gulp.start 'uglify', 'coffeedoc', 'buildGHPages'
 
 gulp.task 'server', ->
 	gulp.start 'coffee', 'less', 'watch'

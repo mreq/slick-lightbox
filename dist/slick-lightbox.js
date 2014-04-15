@@ -132,3 +132,6 @@ $.fn.unslickLightbox = function(options) {
   return this.slickLightbox.destroy(true);
 };
 ;
+fn.unslickLightbox = function(options) {
+  return this.slickLightbox.destroy(true);
+};
