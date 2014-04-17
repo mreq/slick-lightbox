@@ -19,12 +19,11 @@
 		filter: ~"alpha(opacity=0)";
 	}
 	.slick-lightbox-inner {
-		@s: 90%;
 		position: absolute;
-		top: (((100%-@s)/2));
-		left: (((100%-@s)/2));
-		width: @s;
-		height: @s;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 		.slick-lightbox-slick {
 			.slick-lightbox-slick-item {
 				text-align: center;
@@ -39,16 +38,16 @@
 				.slick-lightbox-slick-img {
 					display: inline-block;
 					vertical-align: middle;
-					max-width: 100%;
-					max-height: 100%;
+					max-width: 90%;
+					max-height: 90%;
 				}
 			}
 		}
 		// used slick's button css
 		.slick-lightbox-close {
 			position: absolute;
-			top: -25px;
-			right: -25px;
+			top: 15px;
+			right: 15px;
 			display: block;
 			height: 20px;
 			width: 20px;
@@ -74,5 +73,11 @@
 	}
 	.slick-loading .slick-list {
 		background-color: transparent;
+	}
+	.slick-prev {
+		left: 15px;
+	}
+	.slick-next {
+		right: 15px;
 	}
 }
