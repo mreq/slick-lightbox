@@ -43,7 +43,7 @@ gulp.task 'build', ->
 	gulp
 		.src ['./src/scripts/slick-lightbox.js', './src/styles/slick-lightbox.css']
 		.pipe gulp.dest './dist/'
-	gulp.start 'uglify', 'coffeedoc', 'buildGHPages'
+	gulp.start 'coffeedoc', 'buildGHPages'
 
 gulp.task 'server', ->
 	gulp.start 'coffee', 'less', 'watch'
