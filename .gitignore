@@ -1,6 +1,7 @@
-src/bower_components
 node_modules
-src/styles/*.css
-src/scripts/*.js
+src/bower_components/slick-carousel/*
+!src/bower_components/slick-carousel/slick
+src/bower_components/jquery/*
+!src/bower_components/jquery/dist
 
 *.sublime-*
