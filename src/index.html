@@ -9,11 +9,11 @@
 <body>
 	<div>
 		<ul>
-			<li><a href="http://placekitten.com/600/300">http://placekitten.com/600/300</a></li>
-			<li><a href="http://placekitten.com/630/280">http://placekitten.com/630/280</a></li>
-			<li><a href="http://placekitten.com/500/250">http://placekitten.com/500/250</a></li>
-			<li><a href="http://placekitten.com/700/350">http://placekitten.com/700/350</a></li>
-			<li><a href="http://placekitten.com/450/800">http://placekitten.com/450/800</a></li>
+			<li><a href="http://placekitten.com/600/300" data-caption="Lorem ipsum 600x300">http://placekitten.com/600/300</a></li>
+			<li><a href="http://placekitten.com/630/280" data-caption="Lorem ipsum 630x280">http://placekitten.com/630/280</a></li>
+			<li><a href="http://placekitten.com/500/250" data-caption="Lorem ipsum 500x250">http://placekitten.com/500/250</a></li>
+			<li><a href="http://placekitten.com/700/350" data-caption="Lorem ipsum 700x350">http://placekitten.com/700/350</a></li>
+			<li><a href="http://placekitten.com/450/800" data-caption="Lorem ipsum 450x800">http://placekitten.com/450/800</a></li>
 		</ul>
 	</div>
 	<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
@@ -21,7 +21,12 @@
 	<script type="text/javascript" src="scripts/slick-lightbox.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('ul').slickLightbox();
+			$('ul').slickLightbox({
+				// caption: function(element) {
+				// 	return $(element).data('caption');
+				// }
+				caption: 'caption'
+			});
 		});
 	</script>
 </body>

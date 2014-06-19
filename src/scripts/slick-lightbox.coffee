@@ -25,8 +25,9 @@ class SlickLightbox
 		@open()
 	createModal: (index) ->
 		### Creates a `slick`-friendly modal. Rearranges the items so that the `index`-th item is placed first. ###
-		createItem = (el) ->
-			"""<div class="slick-lightbox-slick-item"><img class="slick-lightbox-slick-img" src="#{ el.href }" /></div>"""
+		createItem = (el) =>
+			caption = @getElementCaption(el) 
+			"""<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ el.href }" />#{ caption }</div></div>"""
 		# We need to start with the `index`-th item.
 		a = @element.find(@options.itemSelector)
 		if index is 0 or index is -1
@@ -39,7 +40,7 @@ class SlickLightbox
 		html = """
 		<div class="slick-lightbox slick-hide-init" style="background: #{ @options.background };">
 			<div class="slick-lightbox-inner">
-				<div class="slick-lightbox-slick">#{ links.join('') }</div>
+				<div class="slick-lightbox-slick slick-caption-#{ @options.captionPosition }">#{ links.join('') }</div>
 				<button type="button" class="slick-lightbox-close"></button>
 			<div>
 		<div>
@@ -95,6 +96,14 @@ class SlickLightbox
 			@slick.slickPrev()
 		else
 			@slick.slickNext()
+	getElementCaption: (el) ->
+		return ''  unless @options.caption
+		c = switch typeof @options.caption
+			when 'function'
+				@options.caption(el)
+			when 'string'
+				$(el).data(@options.caption)
+		return """<span class="slick-lightbox-slick-caption">#{ c }</span>"""
 	unbindEvents: ->
 		### Unbinds global events. ###
 		$(window).off '.slickLightbox'
@@ -120,6 +129,8 @@ defaults =
 	destroyTimeout: 500
 	itemSelector: 'a'
 	navigateByKeyboard: true
+	caption: false
+	captionPosition: 'dynamic'
 	slick: {}
 # jQuery method
 $.fn.slickLightbox = (options) ->

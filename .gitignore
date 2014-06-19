@@ -2,3 +2,5 @@ src/bower_components
 node_modules
 src/styles/*.css
 src/scripts/*.js
+
+*.sublime-*

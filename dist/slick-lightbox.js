@@ -38,9 +38,13 @@ SlickLightbox = (function() {
 
     /* Creates a `slick`-friendly modal. Rearranges the items so that the `index`-th item is placed first. */
     var a, createItem, html, links;
-    createItem = function(el) {
-      return "<div class=\"slick-lightbox-slick-item\"><img class=\"slick-lightbox-slick-img\" src=\"" + el.href + "\" /></div>";
-    };
+    createItem = (function(_this) {
+      return function(el) {
+        var caption;
+        caption = _this.getElementCaption(el);
+        return "<div class=\"slick-lightbox-slick-item\"><div class=\"slick-lightbox-slick-item-inner\"><img class=\"slick-lightbox-slick-img\" src=\"" + el.href + "\" />" + caption + "</div></div>";
+      };
+    })(this);
     a = this.element.find(this.options.itemSelector);
     if (index === 0 || index === -1) {
       links = $.map(a, createItem);
@@ -50,7 +54,7 @@ SlickLightbox = (function() {
         return links.push(createItem(el));
       });
     }
-    html = "<div class=\"slick-lightbox slick-hide-init\" style=\"background: " + this.options.background + ";\">\n	<div class=\"slick-lightbox-inner\">\n		<div class=\"slick-lightbox-slick\">" + (links.join('')) + "</div>\n		<button type=\"button\" class=\"slick-lightbox-close\"></button>\n	<div>\n<div>";
+    html = "<div class=\"slick-lightbox slick-hide-init\" style=\"background: " + this.options.background + ";\">\n	<div class=\"slick-lightbox-inner\">\n		<div class=\"slick-lightbox-slick slick-caption-" + this.options.captionPosition + "\">" + (links.join('')) + "</div>\n		<button type=\"button\" class=\"slick-lightbox-close\"></button>\n	<div>\n<div>";
     this.modalElement = $(html);
     return $('body').append(this.modalElement);
   };
@@ -135,6 +139,22 @@ SlickLightbox = (function() {
     }
   };
 
+  SlickLightbox.prototype.getElementCaption = function(el) {
+    var c;
+    if (!this.options.caption) {
+      return '';
+    }
+    c = (function() {
+      switch (typeof this.options.caption) {
+        case 'function':
+          return this.options.caption(el);
+        case 'string':
+          return $(el).data(this.options.caption);
+      }
+    }).call(this);
+    return "<span class=\"slick-lightbox-slick-caption\">" + c + "</span>";
+  };
+
   SlickLightbox.prototype.unbindEvents = function() {
 
     /* Unbinds global events. */
@@ -176,6 +196,8 @@ defaults = {
   destroyTimeout: 500,
   itemSelector: 'a',
   navigateByKeyboard: true,
+  caption: false,
+  captionPosition: 'dynamic',
   slick: {}
 };
 

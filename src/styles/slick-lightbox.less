@@ -35,11 +35,41 @@
 					vertical-align: middle;
 					margin-right: -0.25em;
 				}
-				.slick-lightbox-slick-img {
+				.slick-lightbox-slick-item-inner {
 					display: inline-block;
 					vertical-align: middle;
 					max-width: 90%;
 					max-height: 90%;
+					.slick-lightbox-slick-img {
+						margin: 0 auto;
+						display: block;
+						max-width: 90%;
+						max-height: 90%;
+					}
+					.slick-lightbox-slick-caption {
+						margin-top: 10px;
+						color: white;
+					}
+				}
+			}
+			&.slick-caption-bottom {
+				.slick-lightbox-slick-item {
+					.slick-lightbox-slick-caption {
+						position: absolute;
+						bottom: 0;
+						left: 0;
+						text-align: center;
+						width: 100%;
+						margin-bottom: 20px;
+					}
+				}
+			}
+			&.slick-caption-dynamic {
+				.slick-lightbox-slick-item {
+					.slick-lightbox-slick-caption {
+						display: block;
+						text-align: center;
+					}
 				}
 			}
 		}
