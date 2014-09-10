@@ -12,6 +12,7 @@ class SlickLightbox
 	constructor: (element, @options) ->
 		### Binds the plugin. ###
 		@element = $(element)
+		@didInit = false
 		that = @
 		@element.on 'click.slickLightbox', @options.itemSelector, (e) ->
 			e.preventDefault()
@@ -19,6 +20,7 @@ class SlickLightbox
 	init: (index) ->
 		### Creates the lightbox, opens it, binds events and calls `slick`. Accepts `index` of the element, that triggered it (so that we know, on which slide to start slick). ###
 		# @destroyPrevious()
+		@didInit = true
 		@createModal(index)
 		@bindEvents()
 		@initSlick()
@@ -111,13 +113,14 @@ class SlickLightbox
 		@modalElement.off '.slickLightbox'
 	destroy: (unbindAnchors = false) ->
 		### Destroys the lightbox and unbinds global events. If `true` is passed as an argument, unbinds the original element as well. ###
-		@unbindEvents()
-		# Let transitions take effect
-		setTimeout (=>
-			@modalElement.remove()
-		), @options.destroyTimeout
+		if @didInit
+			@unbindEvents()
+			# Let transitions take effect
+			setTimeout (=>
+				@modalElement.remove()
+			), @options.destroyTimeout
 		if unbindAnchors
-			@element.off '.slickLightbox'
+			@element.off '.slickLightbox', @options.itemSelector
 	destroyPrevious: ->
 		### Destroys lightboxes currently in DOM. ###
 		$('body').children('.slick-lightbox').trigger 'destroy.slickLightbox'
@@ -136,5 +139,5 @@ defaults =
 $.fn.slickLightbox = (options) ->
 	options = $.extend {}, defaults, options
 	this.slickLightbox = new SlickLightbox this, options
-$.fn.unslickLightbox = (options) ->
+$.fn.unslickLightbox = ->
 	this.slickLightbox.destroy(true)

@@ -18,6 +18,7 @@ SlickLightbox = (function() {
 
     /* Binds the plugin. */
     this.element = $(element);
+    this.didInit = false;
     that = this;
     this.element.on('click.slickLightbox', this.options.itemSelector, function(e) {
       e.preventDefault();
@@ -28,6 +29,7 @@ SlickLightbox = (function() {
   SlickLightbox.prototype.init = function(index) {
 
     /* Creates the lightbox, opens it, binds events and calls `slick`. Accepts `index` of the element, that triggered it (so that we know, on which slide to start slick). */
+    this.didInit = true;
     this.createModal(index);
     this.bindEvents();
     this.initSlick();
@@ -169,14 +171,16 @@ SlickLightbox = (function() {
     }
 
     /* Destroys the lightbox and unbinds global events. If `true` is passed as an argument, unbinds the original element as well. */
-    this.unbindEvents();
-    setTimeout(((function(_this) {
-      return function() {
-        return _this.modalElement.remove();
-      };
-    })(this)), this.options.destroyTimeout);
+    if (this.didInit) {
+      this.unbindEvents();
+      setTimeout(((function(_this) {
+        return function() {
+          return _this.modalElement.remove();
+        };
+      })(this)), this.options.destroyTimeout);
+    }
     if (unbindAnchors) {
-      return this.element.off('.slickLightbox');
+      return this.element.off('.slickLightbox', this.options.itemSelector);
     }
   };
 
@@ -206,6 +210,6 @@ $.fn.slickLightbox = function(options) {
   return this.slickLightbox = new SlickLightbox(this, options);
 };
 
-$.fn.unslickLightbox = function(options) {
+$.fn.unslickLightbox = function() {
   return this.slickLightbox.destroy(true);
 };
