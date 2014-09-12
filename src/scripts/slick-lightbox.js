@@ -36,26 +36,38 @@ SlickLightbox = (function() {
     return this.open();
   };
 
+  SlickLightbox.prototype.createModalItems = function(index) {
+    var a, createItem, links;
+    if (this.options.images) {
+      links = $.map(this.options.images, function(img) {
+        return "<div class=\"slick-lightbox-slick-item\"><div class=\"slick-lightbox-slick-item-inner\"><img class=\"slick-lightbox-slick-img\" src=\"" + img + "\" /></div></div>";
+      });
+    } else {
+      createItem = (function(_this) {
+        return function(el) {
+          var caption;
+          caption = _this.getElementCaption(el);
+          return "<div class=\"slick-lightbox-slick-item\"><div class=\"slick-lightbox-slick-item-inner\"><img class=\"slick-lightbox-slick-img\" src=\"" + el.href + "\" />" + caption + "</div></div>";
+        };
+      })(this);
+      a = this.element.find(this.options.itemSelector);
+      if (index === 0 || index === -1) {
+        links = $.map(a, createItem);
+      } else {
+        links = $.map(a.slice(index), createItem);
+        $.each(a.slice(0, index), function(i, el) {
+          return links.push(createItem(el));
+        });
+      }
+    }
+    return links;
+  };
+
   SlickLightbox.prototype.createModal = function(index) {
 
     /* Creates a `slick`-friendly modal. Rearranges the items so that the `index`-th item is placed first. */
-    var a, createItem, html, links;
-    createItem = (function(_this) {
-      return function(el) {
-        var caption;
-        caption = _this.getElementCaption(el);
-        return "<div class=\"slick-lightbox-slick-item\"><div class=\"slick-lightbox-slick-item-inner\"><img class=\"slick-lightbox-slick-img\" src=\"" + el.href + "\" />" + caption + "</div></div>";
-      };
-    })(this);
-    a = this.element.find(this.options.itemSelector);
-    if (index === 0 || index === -1) {
-      links = $.map(a, createItem);
-    } else {
-      links = $.map(a.slice(index), createItem);
-      $.each(a.slice(0, index), function(i, el) {
-        return links.push(createItem(el));
-      });
-    }
+    var html, links;
+    links = this.createModalItems(index);
     html = "<div class=\"slick-lightbox slick-hide-init\" style=\"background: " + this.options.background + ";\">\n	<div class=\"slick-lightbox-inner\">\n		<div class=\"slick-lightbox-slick slick-caption-" + this.options.captionPosition + "\">" + (links.join('')) + "</div>\n		<button type=\"button\" class=\"slick-lightbox-close\"></button>\n	<div>\n<div>";
     this.modalElement = $(html);
     return $('body').append(this.modalElement);
@@ -202,6 +214,7 @@ defaults = {
   navigateByKeyboard: true,
   caption: false,
   captionPosition: 'dynamic',
+  images: false,
   slick: {}
 };
 

@@ -39,3 +39,4 @@ navigateByKeyboard  | boolean | true           | Can you use keyboard arrows to 
 slick               | object  | {}             | Slick options to pass to the carousel.
 caption             | various | false          | Should the images be captioned? If `false`, no caption is created. You can pass your own **function** accepting the anchor element as an attribute (e.g. `function(element) { return $(element).doSomething(); }`) or a **string** with the name of the `data-attribute` to be fetched (`my-caption` will get the value of `data-my-caption` attribute).
 captionPosition     | various | 'dynamic'      | Where should the caption be placed? When set to 'dynamic', the caption is displayed right under the image. When 'bottom', the caption is on the bottom of the screen independent from the image size.
+images              | various | false          | When passed an array, slick lightbox doesn't scan the elements for image URLs and uses array's values instead.

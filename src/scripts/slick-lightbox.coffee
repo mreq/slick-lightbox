@@ -25,19 +25,26 @@ class SlickLightbox
 		@bindEvents()
 		@initSlick()
 		@open()
+	createModalItems: (index) ->
+		if @options.images
+			links = $.map @options.images, (img) ->
+				"""<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ img }" /></div></div>"""
+		else
+			createItem = (el) =>
+				caption = @getElementCaption(el) 
+				"""<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ el.href }" />#{ caption }</div></div>"""
+			# We need to start with the `index`-th item.
+			a = @element.find(@options.itemSelector)
+			if index is 0 or index is -1
+				links = $.map a, createItem
+			else
+				links = $.map a.slice(index), createItem
+				$.each a.slice(0, index), (i, el) ->
+					links.push createItem el
+		return links
 	createModal: (index) ->
 		### Creates a `slick`-friendly modal. Rearranges the items so that the `index`-th item is placed first. ###
-		createItem = (el) =>
-			caption = @getElementCaption(el) 
-			"""<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ el.href }" />#{ caption }</div></div>"""
-		# We need to start with the `index`-th item.
-		a = @element.find(@options.itemSelector)
-		if index is 0 or index is -1
-			links = $.map a, createItem
-		else
-			links = $.map a.slice(index), createItem
-			$.each a.slice(0, index), (i, el) ->
-				links.push createItem el
+		links = @createModalItems index
 
 		html = """
 		<div class="slick-lightbox slick-hide-init" style="background: #{ @options.background };">
@@ -134,6 +141,7 @@ defaults =
 	navigateByKeyboard: true
 	caption: false
 	captionPosition: 'dynamic'
+	images: false
 	slick: {}
 # jQuery method
 $.fn.slickLightbox = (options) ->
