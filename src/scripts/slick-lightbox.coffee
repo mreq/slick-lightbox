@@ -79,7 +79,10 @@ class SlickLightbox
 		### Binds global events. ###
 		# Slides size needs to be 100%, which can't be achieved easily via CSS on floated elements.
 		resizeSlides = =>
-			@modalElement.find('.slick-lightbox-slick-item').height @modalElement.find('.slick-lightbox-inner').height()
+			h = @modalElement.find('.slick-lightbox-inner').height()
+			@modalElement.find('.slick-lightbox-slick-item').height h
+			# max-height 90% on the image is buggy
+			@modalElement.find('.slick-lightbox-slick-img').css 'max-height', Math.round(0.9*h)
 		$(window).on 'orientationchange.slickLightbox resize.slickLightbox', resizeSlides
 		@modalElement.on 'init.slickLightbox', resizeSlides
 		# Destroy event triggered by other instances

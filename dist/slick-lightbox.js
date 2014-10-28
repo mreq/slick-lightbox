@@ -107,7 +107,10 @@ SlickLightbox = (function() {
     var resizeSlides;
     resizeSlides = (function(_this) {
       return function() {
-        return _this.modalElement.find('.slick-lightbox-slick-item').height(_this.modalElement.find('.slick-lightbox-inner').height());
+        var h;
+        h = _this.modalElement.find('.slick-lightbox-inner').height();
+        _this.modalElement.find('.slick-lightbox-slick-item').height(h);
+        return _this.modalElement.find('.slick-lightbox-slick-img').css('max-height', Math.round(0.9 * h));
       };
     })(this);
     $(window).on('orientationchange.slickLightbox resize.slickLightbox', resizeSlides);
