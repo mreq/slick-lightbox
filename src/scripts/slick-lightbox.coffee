@@ -64,7 +64,6 @@ class SlickLightbox
 				@options.slick @modalElement
 			else
 				@slick = @modalElement.find('.slick-lightbox-slick').slick @options.slick
-
 		else
 			@slick = @modalElement.find('.slick-lightbox-slick').slick()
 		@modalElement.trigger 'init.slickLightbox'
@@ -103,6 +102,12 @@ class SlickLightbox
 						@slideSlick 'right'
 				if @options.closeOnEscape
 					@close()  if code is 27
+		if @options.closeOnBackdropClick
+			@modalElement.on 'click.slickLightbox touchstart.slickLightbox', '.slick-lightbox-slick-img', (e) =>
+				e.stopPropagation()
+			@modalElement.on 'click.slickLightbox touchstart.slickLightbox', '.slick-lightbox-slick-item', (e) =>
+				e.preventDefault()
+				@close()
 	slideSlick: (direction) ->
 		if direction is 'left'
 			@slick.slickPrev()
@@ -139,6 +144,7 @@ class SlickLightbox
 defaults =
 	background: 'rgba(0,0,0,.8)'
 	closeOnEscape: true
+	closeOnBackdropClick: true
 	destroyTimeout: 500
 	itemSelector: 'a'
 	navigateByKeyboard: true

@@ -127,7 +127,7 @@ SlickLightbox = (function() {
       };
     })(this));
     if (this.options.closeOnEscape || this.options.navigateByKeyboard) {
-      return $(document).on('keydown.slickLightbox', (function(_this) {
+      $(document).on('keydown.slickLightbox', (function(_this) {
         return function(e) {
           var code;
           code = e.keyCode ? e.keyCode : e.which;
@@ -143,6 +143,19 @@ SlickLightbox = (function() {
               return _this.close();
             }
           }
+        };
+      })(this));
+    }
+    if (this.options.closeOnBackdropClick) {
+      this.modalElement.on('click.slickLightbox touchstart.slickLightbox', '.slick-lightbox-slick-img', (function(_this) {
+        return function(e) {
+          return e.stopPropagation();
+        };
+      })(this));
+      return this.modalElement.on('click.slickLightbox touchstart.slickLightbox', '.slick-lightbox-slick-item', (function(_this) {
+        return function(e) {
+          e.preventDefault();
+          return _this.close();
         };
       })(this));
     }
@@ -212,6 +225,7 @@ SlickLightbox = (function() {
 defaults = {
   background: 'rgba(0,0,0,.8)',
   closeOnEscape: true,
+  closeOnBackdropClick: true,
   destroyTimeout: 500,
   itemSelector: 'a',
   navigateByKeyboard: true,

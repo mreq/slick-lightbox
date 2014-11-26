@@ -1,6 +1,6 @@
 {
   "name": "slick-lightbox",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "devDependencies": {
     "gulp": "~3.6",
     "gulp-util": "~2.2.14",
