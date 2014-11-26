@@ -30,6 +30,7 @@ SlickLightbox = (function() {
 
     /* Creates the lightbox, opens it, binds events and calls `slick`. Accepts `index` of the element, that triggered it (so that we know, on which slide to start slick). */
     this.didInit = true;
+    this.detectIE();
     this.createModal(index);
     this.bindEvents();
     this.initSlick();
@@ -68,7 +69,7 @@ SlickLightbox = (function() {
     /* Creates a `slick`-friendly modal. Rearranges the items so that the `index`-th item is placed first. */
     var html, links;
     links = this.createModalItems(index);
-    html = "<div class=\"slick-lightbox slick-hide-init\" style=\"background: " + this.options.background + ";\">\n	<div class=\"slick-lightbox-inner\">\n		<div class=\"slick-lightbox-slick slick-caption-" + this.options.captionPosition + "\">" + (links.join('')) + "</div>\n		<button type=\"button\" class=\"slick-lightbox-close\"></button>\n	<div>\n<div>";
+    html = "<div class=\"slick-lightbox slick-hide-init" + (this.isIE ? ' slick-lightbox-ie' : void 0) + "\" style=\"background: " + this.options.background + ";\">\n	<div class=\"slick-lightbox-inner\">\n		<div class=\"slick-lightbox-slick slick-caption-" + this.options.captionPosition + "\">" + (links.join('')) + "</div>\n		<button type=\"button\" class=\"slick-lightbox-close\"></button>\n	<div>\n<div>";
     this.modalElement = $(html);
     return $('body').append(this.modalElement);
   };
@@ -166,6 +167,17 @@ SlickLightbox = (function() {
       return this.slick.slickPrev();
     } else {
       return this.slick.slickNext();
+    }
+  };
+
+  SlickLightbox.prototype.detectIE = function() {
+    var ieversion;
+    this.isIE = false;
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+      ieversion = new Number(RegExp.$1);
+      if (ieversion < 9) {
+        return this.isIE = true;
+      }
     }
   };
 

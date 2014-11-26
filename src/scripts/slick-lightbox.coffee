@@ -21,6 +21,7 @@ class SlickLightbox
 		### Creates the lightbox, opens it, binds events and calls `slick`. Accepts `index` of the element, that triggered it (so that we know, on which slide to start slick). ###
 		# @destroyPrevious()
 		@didInit = true
+		@detectIE()
 		@createModal(index)
 		@bindEvents()
 		@initSlick()
@@ -47,7 +48,7 @@ class SlickLightbox
 		links = @createModalItems index
 
 		html = """
-		<div class="slick-lightbox slick-hide-init" style="background: #{ @options.background };">
+		<div class="slick-lightbox slick-hide-init#{ if @isIE then ' slick-lightbox-ie' }" style="background: #{ @options.background };">
 			<div class="slick-lightbox-inner">
 				<div class="slick-lightbox-slick slick-caption-#{ @options.captionPosition }">#{ links.join('') }</div>
 				<button type="button" class="slick-lightbox-close"></button>
@@ -113,6 +114,12 @@ class SlickLightbox
 			@slick.slickPrev()
 		else
 			@slick.slickNext()
+	detectIE: ->
+		@isIE = false
+		if /MSIE (\d+\.\d+);/.test(navigator.userAgent)
+		  ieversion = new Number(RegExp.$1) # capture x.x portion and store as a number
+		  if ieversion < 9
+		    @isIE = true
 	getElementCaption: (el) ->
 		return ''  unless @options.caption
 		c = switch typeof @options.caption

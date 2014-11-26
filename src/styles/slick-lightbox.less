@@ -10,13 +10,18 @@
 	transition: opacity 0.5s ease;
 	&.slick-hide {
 		opacity: 0;
-		filter: ~"alpha(opacity=0)";
 	}
 	&.slick-hide-init {
 		position: absolute;
 		top: -9999px;
 		opacity: 0;
-		filter: ~"alpha(opacity=0)";
+	}
+	&.slick-lightbox-ie {
+		&.slick-hide,
+		&.slick-hide-init {
+			-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+			filter: alpha(opacity=0);
+		}
 	}
 	.slick-lightbox-inner {
 		position: fixed;
