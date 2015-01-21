@@ -32,7 +32,7 @@ class SlickLightbox
 				"""<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ img }" /></div></div>"""
 		else
 			createItem = (el) =>
-				caption = @getElementCaption(el) 
+				caption = @getElementCaption(el)
 				"""<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ el.href }" />#{ caption }</div></div>"""
 			# We need to start with the `index`-th item.
 			a = @element.find(@options.itemSelector)
@@ -48,7 +48,7 @@ class SlickLightbox
 		links = @createModalItems index
 
 		html = """
-		<div class="slick-lightbox slick-hide-init#{ if @isIE then ' slick-lightbox-ie' }" style="background: #{ @options.background };">
+		<div class="slick-lightbox slick-hide-init#{ if @isIE then ' slick-lightbox-ie' else '' }" style="background: #{ @options.background };">
 			<div class="slick-lightbox-inner">
 				<div class="slick-lightbox-slick slick-caption-#{ @options.captionPosition }">#{ links.join('') }</div>
 				<button type="button" class="slick-lightbox-close"></button>
