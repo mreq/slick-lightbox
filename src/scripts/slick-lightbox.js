@@ -69,7 +69,7 @@ SlickLightbox = (function() {
     /* Creates a `slick`-friendly modal. Rearranges the items so that the `index`-th item is placed first. */
     var html, links;
     links = this.createModalItems(index);
-    html = "<div class=\"slick-lightbox slick-hide-init" + (this.isIE ? ' slick-lightbox-ie' : void 0) + "\" style=\"background: " + this.options.background + ";\">\n	<div class=\"slick-lightbox-inner\">\n		<div class=\"slick-lightbox-slick slick-caption-" + this.options.captionPosition + "\">" + (links.join('')) + "</div>\n		<button type=\"button\" class=\"slick-lightbox-close\"></button>\n	<div>\n<div>";
+    html = "<div class=\"slick-lightbox slick-hide-init" + (this.isIE ? ' slick-lightbox-ie' : '') + "\" style=\"background: " + this.options.background + ";\">\n	<div class=\"slick-lightbox-inner\">\n		<div class=\"slick-lightbox-slick slick-caption-" + this.options.captionPosition + "\">" + (links.join('')) + "</div>\n		<button type=\"button\" class=\"slick-lightbox-close\"></button>\n	<div>\n<div>";
     this.modalElement = $(html);
     return $('body').append(this.modalElement);
   };
