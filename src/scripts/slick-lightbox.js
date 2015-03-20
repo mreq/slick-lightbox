@@ -92,12 +92,24 @@ SlickLightbox = (function() {
   SlickLightbox.prototype.open = function() {
 
     /* Opens the lightbox. */
+    this.element.trigger('show.slickLightbox');
+    setTimeout(((function(_this) {
+      return function() {
+        return _this.element.trigger('shown.slickLightbox');
+      };
+    })(this)), this.getTransitionDuration());
     return this.modalElement.removeClass('slick-hide-init');
   };
 
   SlickLightbox.prototype.close = function() {
 
     /* Closes the lightbox and destroys it, maintaining the original element bindings. */
+    this.element.trigger('hide.slickLightbox');
+    setTimeout(((function(_this) {
+      return function() {
+        return _this.element.trigger('hidden.slickLightbox');
+      };
+    })(this)), this.getTransitionDuration());
     this.modalElement.addClass('slick-hide');
     return this.destroy();
   };
@@ -230,6 +242,15 @@ SlickLightbox = (function() {
     return $('body').children('.slick-lightbox').trigger('destroy.slickLightbox');
   };
 
+  SlickLightbox.prototype.getTransitionDuration = function() {
+    var duration;
+    if (this.transitionDuration) {
+      return this.transitionDuration;
+    }
+    duration = this.modalElement.css('transition-duration');
+    return this.transitionDuration = duration.indexOf('ms') > -1 ? parseFloat(duration) : parseFloat(duration) * 1000;
+  };
+
   return SlickLightbox;
 
 })();
@@ -249,7 +270,8 @@ defaults = {
 
 $.fn.slickLightbox = function(options) {
   options = $.extend({}, defaults, options);
-  return this.slickLightbox = new SlickLightbox(this, options);
+  this.slickLightbox = new SlickLightbox(this, options);
+  return this;
 };
 
 $.fn.unslickLightbox = function() {

@@ -41,3 +41,25 @@ slick                | object  | {}             | Slick options to pass to the c
 caption              | various | false          | Should the images be captioned? If `false`, no caption is created. You can pass your own **function** accepting the anchor element as an attribute (e.g. `function(element) { return $(element).doSomething(); }`) or a **string** with the name of the `data-attribute` to be fetched (`my-caption` will get the value of `data-my-caption` attribute).
 captionPosition      | various | 'dynamic'      | Where should the caption be placed? When set to 'dynamic', the caption is displayed right under the image. When 'bottom', the caption is on the bottom of the screen independent from the image size.
 images               | various | false          | When passed an array, slick lightbox doesn't scan the elements for image URLs and uses array's values instead.
+
+## Events
+
+Events are triggered on the source element. Example:
+
+```javascript
+$(document).ready(function(){
+  $('ul').slickLightbox().on({
+    'show.slickLightbox': function(){ console.log('A `show.slickLightbox` event triggered.'); },1
+    'shown.slickLightbox': function(){ console.log('A `shown.slickLightbox` event triggered.'); },
+    'hide.slickLightbox': function(){ console.log('A `hide.slickLightbox` event triggered.'); },
+    'hidden.slickLightbox': function(){ console.log('A `hidden.slickLightbox` event triggered.'); }
+  });
+});
+```
+
+Event                | Description
+------               | ----
+show.slickLightbox   | Triggered when the lightbox is opened.
+shown.slickLightbox  | Triggered when the lightbox is opened, after the transitions took place.
+hide.slickLightbox   | Triggered when the lightbox is closed.
+hidden.slickLightbox | Triggered when the lightbox is closed, after the transitions took place.

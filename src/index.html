@@ -27,6 +27,11 @@
 				// caption: function(element) {
 				// 	return $(element).data('caption');
 				// }
+			}).on({
+				'show.slickLightbox': function(){ console.log('A `show.slickLightbox` event triggered.'); },
+				'shown.slickLightbox': function(){ console.log('A `shown.slickLightbox` event triggered.'); },
+				'hide.slickLightbox': function(){ console.log('A `hide.slickLightbox` event triggered.'); },
+				'hidden.slickLightbox': function(){ console.log('A `hidden.slickLightbox` event triggered.'); }
 			});
 		});
 	</script>

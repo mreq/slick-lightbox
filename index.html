@@ -93,4 +93,41 @@
 </tr>
 </tbody>
 </table>
+<h2 id="events">Events</h2>
+<p>Events are triggered on the source element. Example:</p>
+<pre><code class="lang-javascript">$(document).ready(function(){
+  $(&#39;ul&#39;).slickLightbox().on({
+    &#39;show.slickLightbox&#39;: function(){ console.log(&#39;A `show.slickLightbox` event triggered.&#39;); },1
+    &#39;shown.slickLightbox&#39;: function(){ console.log(&#39;A `shown.slickLightbox` event triggered.&#39;); },
+    &#39;hide.slickLightbox&#39;: function(){ console.log(&#39;A `hide.slickLightbox` event triggered.&#39;); },
+    &#39;hidden.slickLightbox&#39;: function(){ console.log(&#39;A `hidden.slickLightbox` event triggered.&#39;); }
+  });
+});
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>show.slickLightbox</td>
+<td>Triggered when the lightbox is opened.</td>
+</tr>
+<tr>
+<td>shown.slickLightbox</td>
+<td>Triggered when the lightbox is opened, after the transitions took place.</td>
+</tr>
+<tr>
+<td>hide.slickLightbox</td>
+<td>Triggered when the lightbox is closed.</td>
+</tr>
+<tr>
+<td>hidden.slickLightbox</td>
+<td>Triggered when the lightbox is closed, after the transitions took place.</td>
+</tr>
+</tbody>
+</table>
 </section><footer><p>This project is maintained by <a href="https://github.com/mreq">mreq</a></p><p><small>Hosted on GitHub Pages — Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p></footer></div><script src="gh-pages/javascripts/scale.fix.js"></script></body></html>

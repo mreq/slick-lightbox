@@ -70,9 +70,15 @@ class SlickLightbox
 		@modalElement.trigger 'init.slickLightbox'
 	open: ->
 		### Opens the lightbox. ###
+		# Fire events
+		@element.trigger 'show.slickLightbox'
+		setTimeout (=> @element.trigger 'shown.slickLightbox'), @getTransitionDuration()
 		@modalElement.removeClass('slick-hide-init')
 	close: ->
 		### Closes the lightbox and destroys it, maintaining the original element bindings. ###
+		# Fire events
+		@element.trigger 'hide.slickLightbox'
+		setTimeout (=> @element.trigger 'hidden.slickLightbox'), @getTransitionDuration()
 		@modalElement.addClass('slick-hide')
 		@destroy()
 	bindEvents: ->
@@ -146,6 +152,10 @@ class SlickLightbox
 	destroyPrevious: ->
 		### Destroys lightboxes currently in DOM. ###
 		$('body').children('.slick-lightbox').trigger 'destroy.slickLightbox'
+	getTransitionDuration: ->
+		return @transitionDuration  if @transitionDuration
+		duration = @modalElement.css('transition-duration')
+		@transitionDuration = if duration.indexOf('ms') > -1 then parseFloat(duration) else parseFloat(duration) * 1000
 
 # jQuery defaults
 defaults =
@@ -162,6 +172,7 @@ defaults =
 # jQuery method
 $.fn.slickLightbox = (options) ->
 	options = $.extend {}, defaults, options
-	this.slickLightbox = new SlickLightbox this, options
+	@slickLightbox = new SlickLightbox this, options
+	return this
 $.fn.unslickLightbox = ->
-	this.slickLightbox.destroy(true)
+	@slickLightbox.destroy(true)
