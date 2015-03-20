@@ -164,9 +164,9 @@ SlickLightbox = (function() {
 
   SlickLightbox.prototype.slideSlick = function(direction) {
     if (direction === 'left') {
-      return this.slick.slickPrev();
+      return this.slick.slick('slickPrev');
     } else {
-      return this.slick.slickNext();
+      return this.slick.slick('slickNext');
     }
   };
 

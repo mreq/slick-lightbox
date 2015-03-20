@@ -111,15 +111,15 @@ class SlickLightbox
 				@close()
 	slideSlick: (direction) ->
 		if direction is 'left'
-			@slick.slickPrev()
+			@slick.slick 'slickPrev'
 		else
-			@slick.slickNext()
+			@slick.slick 'slickNext'
 	detectIE: ->
 		@isIE = false
 		if /MSIE (\d+\.\d+);/.test(navigator.userAgent)
-		  ieversion = new Number(RegExp.$1) # capture x.x portion and store as a number
-		  if ieversion < 9
-		    @isIE = true
+			ieversion = new Number(RegExp.$1) # capture x.x portion and store as a number
+			if ieversion < 9
+				@isIE = true
 	getElementCaption: (el) ->
 		return ''  unless @options.caption
 		c = switch typeof @options.caption
