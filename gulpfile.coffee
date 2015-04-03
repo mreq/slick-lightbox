@@ -38,8 +38,7 @@ gulp.task 'watch', ->
 	gulp.watch paths.coffee, ['coffee']
 	gulp.watch paths.less, ['less']
 #############################
-gulp.task 'build', ->
-	gulp.start 'coffee', 'less'
+gulp.task 'build', ['coffee', 'less'], ->
 	gulp
 		.src ['./src/scripts/slick-lightbox.js', './src/styles/slick-lightbox.css']
 		.pipe gulp.dest './dist/'

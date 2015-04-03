@@ -46,9 +46,10 @@ SlickLightbox = (function() {
     } else {
       createItem = (function(_this) {
         return function(el) {
-          var caption;
+          var caption, src;
           caption = _this.getElementCaption(el);
-          return "<div class=\"slick-lightbox-slick-item\"><div class=\"slick-lightbox-slick-item-inner\"><img class=\"slick-lightbox-slick-img\" src=\"" + el.href + "\" />" + caption + "</div></div>";
+          src = _this.getElementSrc(el);
+          return "<div class=\"slick-lightbox-slick-item\"><div class=\"slick-lightbox-slick-item-inner\"><img class=\"slick-lightbox-slick-img\" src=\"" + src + "\" />" + caption + "</div></div>";
         };
       })(this);
       a = this.element.find(this.options.itemSelector);
@@ -209,6 +210,17 @@ SlickLightbox = (function() {
     return "<span class=\"slick-lightbox-slick-caption\">" + c + "</span>";
   };
 
+  SlickLightbox.prototype.getElementSrc = function(el) {
+    switch (typeof this.options.src) {
+      case 'function':
+        return this.options.src(el);
+      case 'string':
+        return $(el).attr(this.options.src);
+      default:
+        return el.href;
+    }
+  };
+
   SlickLightbox.prototype.unbindEvents = function() {
 
     /* Unbinds global events. */
@@ -262,6 +274,7 @@ defaults = {
   destroyTimeout: 500,
   itemSelector: 'a',
   navigateByKeyboard: true,
+  src: false,
   caption: false,
   captionPosition: 'dynamic',
   images: false,

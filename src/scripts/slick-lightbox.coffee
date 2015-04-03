@@ -33,7 +33,8 @@ class SlickLightbox
 		else
 			createItem = (el) =>
 				caption = @getElementCaption(el)
-				"""<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ el.href }" />#{ caption }</div></div>"""
+				src = @getElementSrc(el)
+				"""<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ src }" />#{ caption }</div></div>"""
 			# We need to start with the `index`-th item.
 			a = @element.find(@options.itemSelector)
 			if index is 0 or index is -1
@@ -134,6 +135,14 @@ class SlickLightbox
 			when 'string'
 				$(el).data(@options.caption)
 		return """<span class="slick-lightbox-slick-caption">#{ c }</span>"""
+	getElementSrc: (el) ->
+		return switch typeof @options.src
+			when 'function'
+				@options.src(el)
+			when 'string'
+				$(el).attr(@options.src)
+			else
+				el.href
 	unbindEvents: ->
 		### Unbinds global events. ###
 		$(window).off '.slickLightbox'
@@ -165,6 +174,7 @@ defaults =
 	destroyTimeout: 500
 	itemSelector: 'a'
 	navigateByKeyboard: true
+	src: false
 	caption: false
 	captionPosition: 'dynamic'
 	images: false
