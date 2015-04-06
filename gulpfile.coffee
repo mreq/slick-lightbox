@@ -1,48 +1,47 @@
 #############################
 gulp     = require 'gulp'
-http     = require 'http'
+coffee   = require 'gulp-coffee'
+cssmin   = require 'gulp-cssmin'
 ecstatic = require 'ecstatic'
 gutil    = require 'gulp-util'
-coffee   = require 'gulp-coffee'
+http     = require 'http'
 less     = require 'gulp-less'
-uglify   = require 'gulp-uglify'
 shell    = require 'gulp-shell'
-#############################
-paths =
-	less: './src/styles/*.less'
-	coffee: './src/scripts/*.coffee'
-	uglify: './dist/*.js'
+uglify   = require 'gulp-uglifyjs'
 #############################
 gulp.task 'coffee', ->
 	gulp
-		.src paths.coffee
+		.src 'src/scripts/*.coffee'
 		.pipe coffee( bare: true ).on('error', gutil.log)
-		.pipe gulp.dest './src/scripts/'
+		.pipe gulp.dest 'src/scripts/'
 
 gulp.task 'less', ->
 	gulp
-		.src paths.less
+		.src 'src/styles/*.less'
 		.pipe less( compress: true )
-		.pipe gulp.dest './src/styles/'
+		.pipe gulp.dest 'src/styles/'
 #############################
 gulp.task 'uglify', ->
 	gulp
-		.src paths.uglify
-		.pipe uglify()
-		.pipe gulp.dest './dist/'
+		.src 'dist/slick-lightbox.js'
+		.pipe uglify 'slick-lightbox.min.js', outSourceMap: true
+		.pipe gulp.dest 'dist/'
 
-gulp.task 'coffeedoc', shell.task(['coffeedoc ./src/scripts/slick-lightbox.coffee'])
+gulp.task 'coffeedoc', shell.task(['coffeedoc src/scripts/slick-lightbox.coffee'])
 gulp.task 'buildGHPages', shell.task(['jade index.jade'])
 #############################
 gulp.task 'watch', ->
 	gulp.watch paths.coffee, ['coffee']
 	gulp.watch paths.less, ['less']
 #############################
-gulp.task 'build', ['coffee', 'less'], ->
+gulp.task 'preBuild', ['coffee', 'less'], ->
+	# Copy css and JS
 	gulp
-		.src ['./src/scripts/slick-lightbox.js', './src/styles/slick-lightbox.css']
-		.pipe gulp.dest './dist/'
-	gulp.start 'coffeedoc', 'buildGHPages'
+		.src ['src/styles/slick-lightbox.css', 'src/scripts/slick-lightbox.js']
+		.pipe gulp.dest 'dist/'
+gulp.task 'build', ['preBuild'], ->
+	# Uglify, coffeedoc and gh-pages
+	gulp.start 'uglify', 'coffeedoc', 'buildGHPages'
 
 gulp.task 'server', ->
 	gulp.start 'coffee', 'less', 'watch'
