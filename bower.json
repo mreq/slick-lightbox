@@ -1,10 +1,11 @@
 {
   "name": "slick-lightbox",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "ignore": [
   	"node_modules",
   	"gh-pages",
-  	"src"
+    "src/bower_components"
+  	"src/index.html"
   ],
   "main": [
     "dist/slick-lightbox.js",
