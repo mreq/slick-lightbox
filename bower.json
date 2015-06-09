@@ -4,6 +4,7 @@
   "ignore": [
   	"node_modules",
   	"gh-pages",
+    "docs",
     "src/bower_components",
   	"src/index.html"
   ],
