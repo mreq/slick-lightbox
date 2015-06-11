@@ -164,7 +164,10 @@ class SlickLightbox
 	getTransitionDuration: ->
 		return @transitionDuration  if @transitionDuration
 		duration = @modalElement.css('transition-duration')
-		@transitionDuration = if duration.indexOf('ms') > -1 then parseFloat(duration) else parseFloat(duration) * 1000
+		if typeof duration is 'undefined'
+			@transitionDuration = 500
+		else
+			@transitionDuration = if duration.indexOf('ms') > -1 then parseFloat(duration) else parseFloat(duration) * 1000
 
 # jQuery defaults
 defaults =

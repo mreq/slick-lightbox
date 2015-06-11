@@ -260,7 +260,11 @@ SlickLightbox = (function() {
       return this.transitionDuration;
     }
     duration = this.modalElement.css('transition-duration');
-    return this.transitionDuration = duration.indexOf('ms') > -1 ? parseFloat(duration) : parseFloat(duration) * 1000;
+    if (typeof duration === 'undefined') {
+      return this.transitionDuration = 500;
+    } else {
+      return this.transitionDuration = duration.indexOf('ms') > -1 ? parseFloat(duration) : parseFloat(duration) * 1000;
+    }
   };
 
   return SlickLightbox;

@@ -31,8 +31,8 @@ gulp.task 'coffeedoc', shell.task(['coffeedoc src/scripts/slick-lightbox.coffee'
 gulp.task 'buildGHPages', shell.task(['jade index.jade'])
 #############################
 gulp.task 'watch', ->
-	gulp.watch paths.coffee, ['coffee']
-	gulp.watch paths.less, ['less']
+	gulp.watch 'src/scripts/*.coffee', ['coffee']
+	gulp.watch 'src/styles/*.less', ['less']
 #############################
 gulp.task 'preBuild', ['coffee', 'less'], ->
 	# Copy css and JS
