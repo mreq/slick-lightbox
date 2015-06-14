@@ -38,6 +38,8 @@ SlickLightbox = (function() {
   };
 
   SlickLightbox.prototype.createModalItems = function(index) {
+
+    /* Creates individual slides to be used with slick. If `options.images` array is specified, it uses it's contents, otherwise loops through elements' `options.itemSelector`. */
     var a, createItem, links;
     if (this.options.images) {
       links = $.map(this.options.images, function(img) {
@@ -176,6 +178,8 @@ SlickLightbox = (function() {
   };
 
   SlickLightbox.prototype.slideSlick = function(direction) {
+
+    /* Moves the slick prev or next. */
     if (direction === 'left') {
       return this.slick.slick('slickPrev');
     } else {
@@ -184,6 +188,8 @@ SlickLightbox = (function() {
   };
 
   SlickLightbox.prototype.detectIE = function() {
+
+    /* Detects usage of IE8 and lower. */
     var ieversion;
     this.isIE = false;
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
@@ -195,6 +201,8 @@ SlickLightbox = (function() {
   };
 
   SlickLightbox.prototype.getElementCaption = function(el) {
+
+    /* Returns caption for each slide based on the type of `options.caption`. */
     var c;
     if (!this.options.caption) {
       return '';
@@ -211,6 +219,8 @@ SlickLightbox = (function() {
   };
 
   SlickLightbox.prototype.getElementSrc = function(el) {
+
+    /* Returns src for each slide image based on the type of `options.src`. */
     switch (typeof this.options.src) {
       case 'function':
         return this.options.src(el);
@@ -255,6 +265,8 @@ SlickLightbox = (function() {
   };
 
   SlickLightbox.prototype.getTransitionDuration = function() {
+
+    /* Detects the transition duration to know when to remove stuff from DOM etc. */
     var duration;
     if (this.transitionDuration) {
       return this.transitionDuration;
@@ -286,11 +298,15 @@ defaults = {
 };
 
 $.fn.slickLightbox = function(options) {
+
+  /* Fires the plugin. */
   options = $.extend({}, defaults, options);
   this.slickLightbox = new SlickLightbox(this, options);
   return this;
 };
 
 $.fn.unslickLightbox = function() {
+
+  /* Removes everything. */
   return this.slickLightbox.destroy(true);
 };
