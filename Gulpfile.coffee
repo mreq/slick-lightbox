@@ -47,7 +47,7 @@ gulp.task 'build', ['preBuild'], ->
 gulp.task 'server', ->
 	gulp.start 'coffee', 'less', 'watch'
 	http
-		.createServer ecstatic( root: __dirname + '/src' )
+		.createServer ecstatic( root: __dirname )
 		.listen 9000
 #############################
 gulp.task 'default', ->
