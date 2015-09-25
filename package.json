@@ -1,6 +1,6 @@
 {
   "name": "slick-lightbox",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "devDependencies": {
     "coffee-script": "~1.7.1",
     "coffeedoc": "~0.3.1",
