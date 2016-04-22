@@ -68,7 +68,7 @@
   $(&#039;#default-demo&#039;).slickLightbox();
 &lt;/script&gt;</code></pre>
 
-      <h2 id="captions">Captions</h2>
+      <h2 id="captions">Captions and history API</h2>
       <div class="row" id="captions-demo">
         <div class="col-xs-4"><a href="http://placekitten.com/1000/600" data-caption="Lorem ipsum 1000/600" target="_blank" class="thumbnail"><img src="http://placekitten.com/1000/600" alt=""></a></div>
         <div class="col-xs-4"><a href="http://placekitten.com/1010/606" data-caption="Lorem ipsum 1010/606" target="_blank" class="thumbnail"><img src="http://placekitten.com/1010/606" alt=""></a></div>
@@ -76,7 +76,8 @@
       </div>
       <script type="text/javascript">
         $('#captions-demo').slickLightbox({
-          caption: 'caption'
+          caption: 'caption',
+          useHistoryApi: true
         });
       </script>
       <pre><code class="lang-html">&lt;div class=&quot;row&quot; id=&quot;captions-demo&quot;&gt;
@@ -87,6 +88,7 @@
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(&#039;#captions-demo&#039;).slickLightbox({
     caption: &#039;caption&#039;
+    useHistoryApi: &#039;true&#039;
   });
 &lt;/script&gt;</code></pre>
 
@@ -134,7 +136,7 @@
   });
 &lt;/script&gt;</code></pre>
 
-    
+
 
     </div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>

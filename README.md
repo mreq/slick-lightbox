@@ -59,6 +59,7 @@ caption              | various | `false`          | Should the images be caption
 src                  | various | `false`          | How to get the image urls? If `false`, no src is taken as the `href` attribute. You can pass your own **function** accepting the element as an attribute (e.g. `function(element) { return $(element).doSomething(); }`) or a **string** with the name of the attribute to be fetched (`src` will get the value of `element.src` attribute).
 captionPosition      | various | `'dynamic'`      | Where should the caption be placed? When set to 'dynamic', the caption is displayed right under the image. When 'bottom', the caption is on the bottom of the screen independent to the image size.
 images               | various | `false`          | When passed an array, slick lightbox doesn't scan the elements for image URLs and uses array's values instead.
+useHistoryApi        | boolean | `false`          | When `true`, opening the lightbox does a `history.pushState`. The plugin then listens for the `popstate` event to close the lightbox.
 
 ## Events
 

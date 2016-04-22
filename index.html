@@ -115,6 +115,12 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--></head><body
 <td><code>false</code></td>
 <td>When passed an array, slick lightbox doesn&#39;t scan the elements for image URLs and uses array&#39;s values instead.</td>
 </tr>
+<tr>
+<td>useHistoryApi</td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>When <code>true</code>, opening the lightbox does a <code>history.pushState</code>. The plugin then listens for the <code>popstate</code> event to close the lightbox.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="events">Events</h2>
