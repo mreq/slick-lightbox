@@ -1,6 +1,6 @@
 {
   "name": "slick-lightbox",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "ignore": [
   	"node_modules",
   	"gh-pages",

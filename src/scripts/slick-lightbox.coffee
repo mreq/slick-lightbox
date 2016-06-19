@@ -18,10 +18,12 @@ class SlickLightbox
     ### Binds the plugin. ###
     @$element = $(element)
     @didInit = false
-    that = @
+    slickLightbox = this
     @$element.on 'click.slickLightbox', @options.itemSelector, (e) ->
       e.preventDefault()
-      that.init that.$element.find(that.options.itemSelector).index($(this))
+      $clickedItem = $(this)
+      $items = slickLightbox.filterOutSlickClones slickLightbox.$element.find(slickLightbox.options.itemSelector)
+      slickLightbox.init $items.index($clickedItem)
 
   init: (index) ->
     ### Creates the lightbox, opens it, binds events and calls `slick`. Accepts `index` of the element, that triggered it (so that we know, on which slide to start slick). ###
@@ -44,12 +46,12 @@ class SlickLightbox
         src = @getElementSrc(el)
         """<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ src }" />#{ caption }</div></div>"""
       # We need to start with the `index`-th item.
-      a = @$element.find(@options.itemSelector)
+      $items = @filterOutSlickClones @$element.find(@options.itemSelector)
       if index is 0 or index is -1
-        links = $.map a, createItem
+        links = $.map $items, createItem
       else
-        links = $.map a.slice(index), createItem
-        $.each a.slice(0, index), (i, el) ->
+        links = $.map $items.slice(index), createItem
+        $.each $items.slice(0, index), (i, el) ->
           links.push createItem el
     return links
 
@@ -202,8 +204,15 @@ class SlickLightbox
       @transitionDuration = if duration.indexOf('ms') > -1 then parseFloat(duration) else parseFloat(duration) * 1000
 
   writeHistory: ->
-    # Write to history API if supported
+    ### Writes an empty state to the history API if supported. ###
     history?.pushState?(null, null, '')
+
+  filterOutSlickClones: ($items) ->
+    ### Removes all slick clones from the set of elements. Only does so, if the target element is a slick slider. ###
+    return $items unless @$element.hasClass('slick-slider')
+    $items = $items.filter ->
+      $item = $(this)
+      not $item.hasClass('slick-cloned') and $item.parents('.slick-cloned').length is 0
 
 # jQuery defaults
 defaults =

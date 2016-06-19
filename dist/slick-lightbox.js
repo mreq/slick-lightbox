@@ -6,15 +6,18 @@
   The core class.
    */
         function SlickLightbox(element, options) {
-            var that;
+            var slickLightbox;
             this.options = options;
             /* Binds the plugin. */
             this.$element = $(element);
             this.didInit = false;
-            that = this;
+            slickLightbox = this;
             this.$element.on('click.slickLightbox', this.options.itemSelector, function (e) {
+                var $clickedItem, $items;
                 e.preventDefault();
-                return that.init(that.$element.find(that.options.itemSelector).index($(this)));
+                $clickedItem = $(this);
+                $items = slickLightbox.filterOutSlickClones(slickLightbox.$element.find(slickLightbox.options.itemSelector));
+                return slickLightbox.init($items.index($clickedItem));
             });
         }
         SlickLightbox.prototype.init = function (index) {
@@ -28,7 +31,7 @@
         };
         SlickLightbox.prototype.createModalItems = function (index) {
             /* Creates individual slides to be used with slick. If `options.images` array is specified, it uses it's contents, otherwise loops through elements' `options.itemSelector`. */
-            var a, createItem, links;
+            var $items, createItem, links;
             if (this.options.images) {
                 links = $.map(this.options.images, function (img) {
                     return '<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="' + img + '" /></div></div>';
@@ -42,12 +45,12 @@
                         return '<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="' + src + '" />' + caption + '</div></div>';
                     };
                 }(this);
-                a = this.$element.find(this.options.itemSelector);
+                $items = this.filterOutSlickClones(this.$element.find(this.options.itemSelector));
                 if (index === 0 || index === -1) {
-                    links = $.map(a, createItem);
+                    links = $.map($items, createItem);
                 } else {
-                    links = $.map(a.slice(index), createItem);
-                    $.each(a.slice(0, index), function (i, el) {
+                    links = $.map($items.slice(index), createItem);
+                    $.each($items.slice(0, index), function (i, el) {
                         return links.push(createItem(el));
                     });
                 }
@@ -255,7 +258,19 @@
             }
         };
         SlickLightbox.prototype.writeHistory = function () {
+            /* Writes an empty state to the history API if supported. */
             return typeof history !== 'undefined' && history !== null ? typeof history.pushState === 'function' ? history.pushState(null, null, '') : void 0 : void 0;
+        };
+        SlickLightbox.prototype.filterOutSlickClones = function ($items) {
+            /* Removes all slick clones from the set of elements. Only does so, if the target element is a slick slider. */
+            if (!this.$element.hasClass('slick-slider')) {
+                return $items;
+            }
+            return $items = $items.filter(function () {
+                var $item;
+                $item = $(this);
+                return !$item.hasClass('slick-cloned') && $item.parents('.slick-cloned').length === 0;
+            });
         };
         return SlickLightbox;
     }();
