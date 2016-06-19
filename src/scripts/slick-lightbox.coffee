@@ -131,7 +131,7 @@ class SlickLightbox
     if @options.closeOnBackdropClick
       @$modalElement.on 'click.slickLightbox touchstart.slickLightbox', '.slick-lightbox-slick-img', (e) ->
         e.stopPropagation()
-      @$modalElement.on 'click.slickLightbox touchstart.slickLightbox', '.slick-lightbox-slick-item', (e) =>
+      @$modalElement.on 'click.slickLightbox', '.slick-lightbox-slick-item', (e) =>
         e.preventDefault()
         @close()
 

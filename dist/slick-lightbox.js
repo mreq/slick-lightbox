@@ -159,7 +159,7 @@
                 this.$modalElement.on('click.slickLightbox touchstart.slickLightbox', '.slick-lightbox-slick-img', function (e) {
                     return e.stopPropagation();
                 });
-                return this.$modalElement.on('click.slickLightbox touchstart.slickLightbox', '.slick-lightbox-slick-item', function (_this) {
+                return this.$modalElement.on('click.slickLightbox', '.slick-lightbox-slick-item', function (_this) {
                     return function (e) {
                         e.preventDefault();
                         return _this.close();
