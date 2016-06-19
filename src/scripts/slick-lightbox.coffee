@@ -58,7 +58,7 @@ class SlickLightbox
     links = @createModalItems index
 
     html = """
-    <div class="slick-lightbox slick-hide-init#{ if @isIE then ' slick-lightbox-ie' else '' }" style="background: #{ @options.background };">
+    <div class="slick-lightbox slick-lightbox-hide-init#{ if @isIE then ' slick-lightbox-ie' else '' }" style="background: #{ @options.background };">
       <div class="slick-lightbox-inner">
         <div class="slick-lightbox-slick slick-caption-#{ @options.captionPosition }">#{ links.join('') }</div>
         <button type="button" class="slick-lightbox-close"></button>
@@ -86,14 +86,14 @@ class SlickLightbox
     # Fire events
     @$element.trigger 'show.slickLightbox'
     setTimeout (=> @$element.trigger 'shown.slickLightbox'), @getTransitionDuration()
-    @$modalElement.removeClass('slick-hide-init')
+    @$modalElement.removeClass('slick-lightbox-hide-init')
 
   close: ->
     ### Closes the lightbox and destroys it, maintaining the original element bindings. ###
     # Fire events
     @$element.trigger 'hide.slickLightbox'
     setTimeout (=> @$element.trigger 'hidden.slickLightbox'), @getTransitionDuration()
-    @$modalElement.addClass('slick-hide')
+    @$modalElement.addClass('slick-lightbox-hide')
     @destroy()
 
   bindEvents: ->

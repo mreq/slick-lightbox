@@ -58,7 +58,7 @@
             /* Creates a `slick`-friendly modal. Rearranges the items so that the `index`-th item is placed first. */
             var html, links;
             links = this.createModalItems(index);
-            html = '<div class="slick-lightbox slick-hide-init' + (this.isIE ? ' slick-lightbox-ie' : '') + '" style="background: ' + this.options.background + ';">\n  <div class="slick-lightbox-inner">\n    <div class="slick-lightbox-slick slick-caption-' + this.options.captionPosition + '">' + links.join('') + '</div>\n    <button type="button" class="slick-lightbox-close"></button>\n  <div>\n<div>';
+            html = '<div class="slick-lightbox slick-lightbox-hide-init' + (this.isIE ? ' slick-lightbox-ie' : '') + '" style="background: ' + this.options.background + ';">\n  <div class="slick-lightbox-inner">\n    <div class="slick-lightbox-slick slick-caption-' + this.options.captionPosition + '">' + links.join('') + '</div>\n    <button type="button" class="slick-lightbox-close"></button>\n  <div>\n<div>';
             this.$modalElement = $(html);
             return $('body').append(this.$modalElement);
         };
@@ -86,7 +86,7 @@
                     return _this.$element.trigger('shown.slickLightbox');
                 };
             }(this), this.getTransitionDuration());
-            return this.$modalElement.removeClass('slick-hide-init');
+            return this.$modalElement.removeClass('slick-lightbox-hide-init');
         };
         SlickLightbox.prototype.close = function () {
             /* Closes the lightbox and destroys it, maintaining the original element bindings. */
@@ -96,7 +96,7 @@
                     return _this.$element.trigger('hidden.slickLightbox');
                 };
             }(this), this.getTransitionDuration());
-            this.$modalElement.addClass('slick-hide');
+            this.$modalElement.addClass('slick-lightbox-hide');
             return this.destroy();
         };
         SlickLightbox.prototype.bindEvents = function () {

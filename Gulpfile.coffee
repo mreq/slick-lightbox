@@ -15,7 +15,7 @@ wrapJS   = require 'gulp-wrap-js'
 
 gulp.task 'coffee', ->
   gulp
-    .src 'src/scripts/*.coffee'
+    .src 'src/scripts/slick-lightbox.coffee'
     .pipe coffee( bare: true ).on('error', gutil.log)
     .pipe wrapJS("""'use strict';
 (function($) {
@@ -27,7 +27,7 @@ gulp.task 'coffee', ->
 
 gulp.task 'sass', ->
   gulp
-    .src 'src/styles/*.sass'
+    .src 'src/styles/slick-lightbox.sass'
     .pipe sass(outputStyle: 'compressed').on('error', sass.logError)
     .pipe gulp.dest 'dist/'
 
