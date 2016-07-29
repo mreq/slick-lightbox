@@ -89,3 +89,4 @@ hidden.slickLightbox | Triggered when the lightbox is closed, after the transiti
 
 The layout is customizable using the `layouts` option object.
 
+- `layouts.closeButton`, which defaults to `<button type="button" class="slick-lightbox-close"></button>`
