@@ -60,6 +60,7 @@ src                  | various | `false`          | How to get the image urls? I
 captionPosition      | various | `'dynamic'`      | Where should the caption be placed? When set to 'dynamic', the caption is displayed right under the image. When 'bottom', the caption is on the bottom of the screen independent to the image size.
 images               | various | `false`          | When passed an array, slick lightbox doesn't scan the elements for image URLs and uses array's values instead.
 useHistoryApi        | boolean | `false`          | When `true`, opening the lightbox does a `history.pushState`. The plugin then listens for the `popstate` event to close the lightbox.
+layouts              | object  |                  | See [Layouts](#layouts)
 
 ## Events
 
@@ -82,3 +83,9 @@ show.slickLightbox   | Triggered when the lightbox is opened.
 shown.slickLightbox  | Triggered when the lightbox is opened, after the transitions took place.
 hide.slickLightbox   | Triggered when the lightbox is closed.
 hidden.slickLightbox | Triggered when the lightbox is closed, after the transitions took place.
+
+
+## Layouts
+
+The layout is customizable using the `layouts` option object.
+

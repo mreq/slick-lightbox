@@ -61,8 +61,11 @@
             /* Creates a `slick`-friendly modal. Rearranges the items so that the `index`-th item is placed first. */
             var html, links;
             links = this.createModalItems(index);
-            html = '<div class="slick-lightbox slick-lightbox-hide-init' + (this.isIE ? ' slick-lightbox-ie' : '') + '" style="background: ' + this.options.background + ';">\n  <div class="slick-lightbox-inner">\n    <div class="slick-lightbox-slick slick-caption-' + this.options.captionPosition + '">' + links.join('') + '</div>\n    <button type="button" class="slick-lightbox-close"></button>\n  <div>\n<div>';
+            html = '<div class="slick-lightbox slick-lightbox-hide-init' + (this.isIE ? ' slick-lightbox-ie' : '') + '" style="background: ' + this.options.background + ';">\n  <div class="slick-lightbox-inner">\n    <div class="slick-lightbox-slick slick-caption-' + this.options.captionPosition + '">' + links.join('') + '</div>\n  <div>\n<div>';
             this.$modalElement = $(html);
+            this.$parts = {};
+            this.$parts['closeButton'] = $(this.options.layouts.closeButton);
+            this.$modalElement.find('.slick-lightbox-inner').append(this.$parts['closeButton']);
             return $('body').append(this.$modalElement);
         };
         SlickLightbox.prototype.initSlick = function (index) {
@@ -132,7 +135,7 @@
                     return _this.destroy(true);
                 };
             }(this));
-            this.$modalElement.on('click.slickLightbox touchstart.slickLightbox', '.slick-lightbox-close', function (_this) {
+            this.$parts['closeButton'].on('click.slickLightbox touchstart.slickLightbox', function (_this) {
                 return function (e) {
                     e.preventDefault();
                     return _this.close();
@@ -286,7 +289,8 @@
         captionPosition: 'dynamic',
         images: false,
         slick: {},
-        useHistoryApi: false
+        useHistoryApi: false,
+        layouts: { closeButton: '<button type="button" class="slick-lightbox-close"></button>' }
     };
     $.fn.slickLightbox = function (options) {
         /* Fires the plugin. */

@@ -63,11 +63,13 @@ class SlickLightbox
     <div class="slick-lightbox slick-lightbox-hide-init#{ if @isIE then ' slick-lightbox-ie' else '' }" style="background: #{ @options.background };">
       <div class="slick-lightbox-inner">
         <div class="slick-lightbox-slick slick-caption-#{ @options.captionPosition }">#{ links.join('') }</div>
-        <button type="button" class="slick-lightbox-close"></button>
       <div>
     <div>
     """
     @$modalElement = $(html)
+    @$parts = {}
+    @$parts['closeButton'] = $(@options.layouts.closeButton)
+    @$modalElement.find('.slick-lightbox-inner').append @$parts['closeButton']
     $('body').append @$modalElement
 
   initSlick: (index) ->
@@ -100,6 +102,7 @@ class SlickLightbox
 
   bindEvents: ->
     ### Binds global events. ###
+
     # Slides size needs to be 100%, which can't be achieved easily via CSS on floated elements.
     resizeSlides = =>
       h = @$modalElement.find('.slick-lightbox-inner').height()
@@ -110,14 +113,18 @@ class SlickLightbox
     if @options.useHistoryApi
       $(window).on 'popstate.slickLightbox', => @close()
     @$modalElement.on 'init.slickLightbox', resizeSlides
+
     # Destroy event triggered by other instances
     @$modalElement.on 'destroy.slickLightbox', => @destroy()
+
     # Destroy event from unslickLightbox
     @$element.on 'destroy.slickLightbox', => @destroy true
+
     # Close button
-    @$modalElement.on 'click.slickLightbox touchstart.slickLightbox', '.slick-lightbox-close', (e) =>
+    @$parts['closeButton'].on 'click.slickLightbox touchstart.slickLightbox', (e) =>
       e.preventDefault()
       @close()
+
     # Optional bindings
     if @options.closeOnEscape or @options.navigateByKeyboard
       # Close on ESC key
@@ -130,6 +137,7 @@ class SlickLightbox
             @slideSlick 'right'
         if @options.closeOnEscape
           @close()  if code is 27
+
     if @options.closeOnBackdropClick
       @$modalElement.on 'click.slickLightbox touchstart.slickLightbox', '.slick-lightbox-slick-img', (e) ->
         e.stopPropagation()
@@ -228,6 +236,8 @@ defaults =
   images: false
   slick: {}
   useHistoryApi: false
+  layouts:
+    closeButton: """<button type="button" class="slick-lightbox-close"></button>"""
 
 # jQuery methods
 $.fn.slickLightbox = (options) ->

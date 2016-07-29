@@ -1,0 +1,9 @@
+# Change Log
+All notable changes to this project will be documented in this file.
+This project adheres to [Semantic Versioning](http://semver.org/). Changelog muster from [olivierlacan/keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
+
+## [0.2.0] - 2016-07-29
+### Added
+- this CHANGELOG.md
+- the `layouts` option object for specifying the HTML code used for parts of the lightbox, thanks @CHEWX for the idea
+- close button layout `layouts.closeButton`
