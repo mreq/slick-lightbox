@@ -243,7 +243,8 @@ defaults =
 $.fn.slickLightbox = (options) ->
   ### Fires the plugin. ###
   options = $.extend {}, defaults, options
-  new SlickLightbox this, options
+  $(this).each ->
+    new SlickLightbox this, options
   return this
 
 $.fn.unslickLightbox = ->

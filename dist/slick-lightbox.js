@@ -295,7 +295,9 @@
     $.fn.slickLightbox = function (options) {
         /* Fires the plugin. */
         options = $.extend({}, defaults, options);
-        new SlickLightbox(this, options);
+        $(this).each(function () {
+            return new SlickLightbox(this, options);
+        });
         return this;
     };
     $.fn.unslickLightbox = function () {

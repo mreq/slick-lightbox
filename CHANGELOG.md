@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/). Changelog muster from [olivierlacan/keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [0.2.1] - 2016-07-29
+### Fixed
+- fix multiple matching groups using `.each`, fixes #21
+
 ## [0.2.0] - 2016-07-29
 ### Added
 - this CHANGELOG.md
