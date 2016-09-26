@@ -24,12 +24,12 @@
             /* Creates the lightbox, opens it, binds events and calls `slick`. Accepts `index` of the element, that triggered it (so that we know, on which slide to start slick). */
             this.didInit = true;
             this.detectIE();
-            this.createModal(index);
+            this.createModal();
             this.bindEvents();
-            this.initSlick();
+            this.initSlick(index);
             return this.open();
         };
-        SlickLightbox.prototype.createModalItems = function (index) {
+        SlickLightbox.prototype.createModalItems = function () {
             /* Creates individual slides to be used with slick. If `options.images` array is specified, it uses it's contents, otherwise loops through elements' `options.itemSelector`. */
             var $items, createItem, links;
             if (this.options.images) {
@@ -46,21 +46,14 @@
                     };
                 }(this);
                 $items = this.filterOutSlickClones(this.$element.find(this.options.itemSelector));
-                if (index === 0 || index === -1) {
-                    links = $.map($items, createItem);
-                } else {
-                    links = $.map($items.slice(index), createItem);
-                    $.each($items.slice(0, index), function (i, el) {
-                        return links.push(createItem(el));
-                    });
-                }
+                links = $.map($items, createItem);
             }
             return links;
         };
-        SlickLightbox.prototype.createModal = function (index) {
-            /* Creates a `slick`-friendly modal. Rearranges the items so that the `index`-th item is placed first. */
+        SlickLightbox.prototype.createModal = function () {
+            /* Creates a `slick`-friendly modal. */
             var html, links;
-            links = this.createModalItems(index);
+            links = this.createModalItems();
             html = '<div class="slick-lightbox slick-lightbox-hide-init' + (this.isIE ? ' slick-lightbox-ie' : '') + '" style="background: ' + this.options.background + ';">\n  <div class="slick-lightbox-inner">\n    <div class="slick-lightbox-slick slick-caption-' + this.options.captionPosition + '">' + links.join('') + '</div>\n  <div>\n<div>';
             this.$modalElement = $(html);
             this.$parts = {};
@@ -69,15 +62,17 @@
             return $('body').append(this.$modalElement);
         };
         SlickLightbox.prototype.initSlick = function (index) {
-            /* Runs slick by default, using `options.slick` if provided. If `options.slick` is a function, it gets fired instead of us initializing slick. */
+            /* Runs slick by default, using `options.slick` if provided. If `options.slick` is a function, it gets fired instead of us initializing slick. Merges in initialSlide option. */
+            var additional;
+            additional = { initialSlide: index };
             if (this.options.slick != null) {
                 if (typeof this.options.slick === 'function') {
                     this.options.slick(this.$modalElement);
                 } else {
-                    this.slick = this.$modalElement.find('.slick-lightbox-slick').slick(this.options.slick);
+                    this.slick = this.$modalElement.find('.slick-lightbox-slick').slick($.extend({}, this.options.slick, additional));
                 }
             } else {
-                this.slick = this.$modalElement.find('.slick-lightbox-slick').slick();
+                this.slick = this.$modalElement.find('.slick-lightbox-slick').slick(additional);
             }
             return this.$modalElement.trigger('init.slickLightbox');
         };

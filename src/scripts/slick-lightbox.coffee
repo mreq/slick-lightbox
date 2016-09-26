@@ -30,12 +30,12 @@ class SlickLightbox
     # @destroyPrevious()
     @didInit = true
     @detectIE()
-    @createModal(index)
+    @createModal()
     @bindEvents()
-    @initSlick()
+    @initSlick(index)
     @open()
 
-  createModalItems: (index) ->
+  createModalItems: ->
     ### Creates individual slides to be used with slick. If `options.images` array is specified, it uses it's contents, otherwise loops through elements' `options.itemSelector`. ###
     if @options.images
       links = $.map @options.images, (img) ->
@@ -45,19 +45,13 @@ class SlickLightbox
         caption = @getElementCaption(el)
         src = @getElementSrc(el)
         """<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ src }" />#{ caption }</div></div>"""
-      # We need to start with the `index`-th item.
       $items = @filterOutSlickClones @$element.find(@options.itemSelector)
-      if index is 0 or index is -1
-        links = $.map $items, createItem
-      else
-        links = $.map $items.slice(index), createItem
-        $.each $items.slice(0, index), (i, el) ->
-          links.push createItem el
-    return links
+      links = $.map $items, createItem
+    links
 
-  createModal: (index) ->
-    ### Creates a `slick`-friendly modal. Rearranges the items so that the `index`-th item is placed first. ###
-    links = @createModalItems index
+  createModal: ->
+    ### Creates a `slick`-friendly modal. ###
+    links = @createModalItems()
 
     html = """
     <div class="slick-lightbox slick-lightbox-hide-init#{ if @isIE then ' slick-lightbox-ie' else '' }" style="background: #{ @options.background };">
@@ -73,15 +67,18 @@ class SlickLightbox
     $('body').append @$modalElement
 
   initSlick: (index) ->
-    ### Runs slick by default, using `options.slick` if provided. If `options.slick` is a function, it gets fired instead of us initializing slick. ###
+    ### Runs slick by default, using `options.slick` if provided. If `options.slick` is a function, it gets fired instead of us initializing slick. Merges in initialSlide option. ###
+    # We need to start with the `index`-th item.
+    additional =
+      initialSlide: index
     if @options.slick?
       if typeof @options.slick is 'function'
         # TODO: support element's index
         @options.slick @$modalElement
       else
-        @slick = @$modalElement.find('.slick-lightbox-slick').slick @options.slick
+        @slick = @$modalElement.find('.slick-lightbox-slick').slick $.extend({}, @options.slick, additional)
     else
-      @slick = @$modalElement.find('.slick-lightbox-slick').slick()
+      @slick = @$modalElement.find('.slick-lightbox-slick').slick(additional)
     @$modalElement.trigger 'init.slickLightbox'
 
   open: ->
