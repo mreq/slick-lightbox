@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/). Changelog mus
 
 ## [0.2.2] - 2016-09-26
 ### Added
-- Use they same slide index numbers as an 'Existing Slick', fixes #25
+- Use the same slide index numbers as an 'Existing Slick', fixes #25
 
 ## [0.2.1] - 2016-07-29
 ### Fixed
