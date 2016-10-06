@@ -16,6 +16,11 @@
                 var $clickedItem, $items;
                 e.preventDefault();
                 $clickedItem = $(this);
+                if (typeof slickLightbox.options.shouldOpen === 'function') {
+                    if (!slickLightbox.options.shouldOpen(slickLightbox, $clickedItem)) {
+                        return;
+                    }
+                }
                 $items = slickLightbox.filterOutSlickClones(slickLightbox.$element.find(slickLightbox.options.itemSelector));
                 return slickLightbox.init($items.index($clickedItem));
             });
@@ -285,7 +290,8 @@
         images: false,
         slick: {},
         useHistoryApi: false,
-        layouts: { closeButton: '<button type="button" class="slick-lightbox-close"></button>' }
+        layouts: { closeButton: '<button type="button" class="slick-lightbox-close"></button>' },
+        shouldOpen: null
     };
     $.fn.slickLightbox = function (options) {
         /* Fires the plugin. */

@@ -22,6 +22,8 @@ class SlickLightbox
     @$element.on 'click.slickLightbox', @options.itemSelector, (e) ->
       e.preventDefault()
       $clickedItem = $(this)
+      if typeof slickLightbox.options.shouldOpen is 'function'
+        return unless slickLightbox.options.shouldOpen(slickLightbox, $clickedItem)
       $items = slickLightbox.filterOutSlickClones slickLightbox.$element.find(slickLightbox.options.itemSelector)
       slickLightbox.init $items.index($clickedItem)
 
@@ -235,6 +237,7 @@ defaults =
   useHistoryApi: false
   layouts:
     closeButton: """<button type="button" class="slick-lightbox-close"></button>"""
+  shouldOpen: null
 
 # jQuery methods
 $.fn.slickLightbox = (options) ->

@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/). Changelog muster from [olivierlacan/keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [0.2.3] - 2016-10-06
+### Added
+- Added the `shouldOpen` option.
+
 ## [0.2.2] - 2016-09-26
 ### Added
 - Use the same slide index numbers as an 'Existing Slick', fixes #25

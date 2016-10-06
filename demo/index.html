@@ -163,6 +163,41 @@
   });
 &lt;/script&gt;</code></pre>
 
+      <h2 id="prevent-opening">Prevent opening</h2>
+      <div id="prevent-opening-demo" class="row">
+        <div class="col-xs-4"><a href="http://placekitten.com/1000/600" target="_blank" class="thumbnail"><img src="http://placekitten.com/1000/600" alt=""></a></div>
+        <div class="col-xs-4"><a href="http://placekitten.com/1010/606" target="_blank" class="thumbnail do-not-open" style="opacity: 0.5; cursor: not-allowed;"><img src="http://placekitten.com/1010/606" alt=""></a></div>
+        <div class="col-xs-4"><a href="http://placekitten.com/1060/636" target="_blank" class="thumbnail"><img src="http://placekitten.com/1060/636" alt=""></a></div>
+      </div>
+      <script type="text/javascript">
+        $('#prevent-opening-demo').slickLightbox({
+          shouldOpen: function(slickLightbox, $clickedElement){
+            if ($clickedElement.hasClass('do-not-open')) {
+              alert('Will not open on .do-not-open!');
+              return false;
+            } else {
+              return true;
+            }
+          }
+        });
+      </script>
+      <pre><code class="lang-html">&lt;div id=&quot;prevent-opening-demo&quot; class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-xs-4&quot;&gt;&lt;a href=&quot;http://placekitten.com/1000/600&quot; target=&quot;_blank&quot; class=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://placekitten.com/1000/600&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+  &lt;div class=&quot;col-xs-4&quot;&gt;&lt;a href=&quot;http://placekitten.com/1010/606&quot; target=&quot;_blank&quot; class=&quot;thumbnail do-not-open&quot; style=&quot;opacity: 0.5; cursor: not-allowed;&quot;&gt;&lt;img src=&quot;http://placekitten.com/1010/606&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+  &lt;div class=&quot;col-xs-4&quot;&gt;&lt;a href=&quot;http://placekitten.com/1060/636&quot; target=&quot;_blank&quot; class=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://placekitten.com/1060/636&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $('#prevent-opening-demo').slickLightbox({
+    shouldOpen: function(slickLightbox, $clickedElement){
+      if ($clickedElement.hasClass('do-not-open')) {
+        alert('Will not open on .do-not-open!');
+        return false;
+      } else {
+        return true;
+      }
+    }
+  });
+&lt;/script&gt;</code></pre>
 
     </div>
 
