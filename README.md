@@ -51,7 +51,7 @@ Option               | Type     |  Default         | Description
 background           | string   | `rgba(0,0,0,.8)` | Background for the lightbox. Is used directly as a CSS `background` statement so that color and/or an image can be used.
 closeOnEscape        | boolean  | `true`           | Should the lightbox close upon pressing ESC?
 closeOnBackdropClick | boolean  | `true`           | Should the lightbox close upon clicking on backdrop?
-destroyTimeout       | integer  | `500`            | How many ms should we wait before actually removing the lightbox from the DOM? The default is used so that a 0.5s opacity transition can take place.
+destroyTimeout       | number   | `500`            | How many ms should we wait before actually removing the lightbox from the DOM? The default is used so that a 0.5s opacity transition can take place.
 itemSelector         | string   | `a`              | jQuery-like selector for the carousel-to-create items. The items should be anchors with `href` attribute aiming at the desired lightbox image. If that's not the case, you should specify the `src` option.
 navigateByKeyboard   | boolean  | `true`           | Can you use keyboard arrows to navigate the carousel?
 slick                | object   | `{}`             | Slick options to pass to the carousel.
@@ -62,6 +62,7 @@ images               | various  | `false`          | When passed an array, slick
 useHistoryApi        | boolean  | `false`          | When `true`, opening the lightbox does a `history.pushState`. The plugin then listens for the `popstate` event to close the lightbox.
 layouts              | object   |                  | See [Layouts](#layouts)
 shouldOpen           | function | `null`           | Given a function, checks the return value before opening. If the function returns a falsy value, the lightbox is not opened upon clicking on the items. Accepts two arguments - the slick lightbox instance as the first, the clicked element as the second.
+imageMaxHeight       | number   | `0.9`            | Maximum height of the lightbox images. Relative to the window height.
 
 ## Events
 

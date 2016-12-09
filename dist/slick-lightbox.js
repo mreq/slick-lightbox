@@ -113,7 +113,7 @@
                     var h;
                     h = _this.$modalElement.find('.slick-lightbox-inner').height();
                     _this.$modalElement.find('.slick-lightbox-slick-item').height(h);
-                    return _this.$modalElement.find('.slick-lightbox-slick-img').css('max-height', Math.round(0.9 * h));
+                    return _this.$modalElement.find('.slick-lightbox-slick-img, .slick-lightbox-slick-item-inner').css('max-height', Math.round(_this.options.imageMaxHeight * h));
                 };
             }(this);
             $(window).on('orientationchange.slickLightbox resize.slickLightbox', resizeSlides);
@@ -291,7 +291,8 @@
         slick: {},
         useHistoryApi: false,
         layouts: { closeButton: '<button type="button" class="slick-lightbox-close"></button>' },
-        shouldOpen: null
+        shouldOpen: null,
+        imageMaxHeight: 0.9
     };
     $.fn.slickLightbox = function (options) {
         /* Fires the plugin. */

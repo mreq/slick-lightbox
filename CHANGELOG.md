@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/). Changelog muster from [olivierlacan/keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [0.2.5] - 2016-12-09
+### Added
+- Added the `imageMaxHeight` option.
+
 ## [0.2.4] - 2016-10-14
 ### Removed
 - Removed npm-shrinkwrap as there are only dev dependencies.

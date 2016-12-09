@@ -106,8 +106,8 @@ class SlickLightbox
     resizeSlides = =>
       h = @$modalElement.find('.slick-lightbox-inner').height()
       @$modalElement.find('.slick-lightbox-slick-item').height h
-      # max-height 90% on the image is buggy
-      @$modalElement.find('.slick-lightbox-slick-img').css 'max-height', Math.round(0.9*h)
+      # max-height on the image is buggy
+      @$modalElement.find('.slick-lightbox-slick-img, .slick-lightbox-slick-item-inner').css 'max-height', Math.round(@options.imageMaxHeight*h)
     $(window).on 'orientationchange.slickLightbox resize.slickLightbox', resizeSlides
     if @options.useHistoryApi
       $(window).on 'popstate.slickLightbox', => @close()
@@ -238,6 +238,7 @@ defaults =
   layouts:
     closeButton: """<button type="button" class="slick-lightbox-close"></button>"""
   shouldOpen: null
+  imageMaxHeight: 0.9
 
 # jQuery methods
 $.fn.slickLightbox = (options) ->

@@ -69,7 +69,7 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--></head><body
 </tr>
 <tr>
 <td>destroyTimeout</td>
-<td>integer</td>
+<td>number</td>
 <td><code>500</code></td>
 <td>How many ms should we wait before actually removing the lightbox from the DOM? The default is used so that a 0.5s opacity transition can take place.</td>
 </tr>
@@ -132,6 +132,12 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--></head><body
 <td>function</td>
 <td><code>null</code></td>
 <td>Given a function, checks the return value before opening. If the function returns a falsy value, the lightbox is not opened upon clicking on the items. Accepts two arguments - the slick lightbox instance as the first, the clicked element as the second.</td>
+</tr>
+<tr>
+<td>imageMaxHeight</td>
+<td>number</td>
+<td><code>0.9</code></td>
+<td>Maximum height of the lightbox images. Relative to the window height.</td>
 </tr>
 </tbody>
 </table>
