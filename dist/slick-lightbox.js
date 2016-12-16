@@ -72,7 +72,7 @@
             additional = { initialSlide: index };
             if (this.options.slick != null) {
                 if (typeof this.options.slick === 'function') {
-                    this.options.slick(this.$modalElement);
+                    this.slick = this.options.slick(this.$modalElement);
                 } else {
                     this.slick = this.$modalElement.find('.slick-lightbox-slick').slick($.extend({}, this.options.slick, additional));
                 }
@@ -298,12 +298,14 @@
         /* Fires the plugin. */
         options = $.extend({}, defaults, options);
         $(this).each(function () {
-            return new SlickLightbox(this, options);
+            return this.slickLightbox = new SlickLightbox(this, options);
         });
         return this;
     };
     $.fn.unslickLightbox = function () {
         /* Removes everything. */
-        return $(this).trigger('destroy.slickLightbox');
+        return $(this).trigger('destroy.slickLightbox').each(function () {
+            return this.slickLightbox = null;
+        });
     };
 }(jQuery));

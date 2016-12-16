@@ -92,3 +92,14 @@ hidden.slickLightbox | Triggered when the lightbox is closed, after the transiti
 The layout is customizable using the `layouts` option object.
 
 - `layouts.closeButton`, which defaults to `<button type="button" class="slick-lightbox-close"></button>`
+
+## Lightbox instance
+
+You can access the lightbox instance through the bound element. It's assigned to `.slickLightbox`. Example:
+
+```javascript
+$('#my-element').slickLightbox()
+console.log('My slickLightbox instance:', $('#my-element')[0].slickLightbox)
+// once a lightbox is opened
+console.log('My slick instance:', $('#my-element')[0].slickLightbox.slick)
+```

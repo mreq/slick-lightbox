@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/). Changelog muster from [olivierlacan/keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [0.2.6] - 2016-12-16
+### Added
+- Added `.slickLightbox` to the bound element.
+
 ## [0.2.5] - 2016-12-09
 ### Added
 - Added the `imageMaxHeight` option.

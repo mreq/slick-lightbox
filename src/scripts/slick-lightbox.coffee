@@ -76,7 +76,7 @@ class SlickLightbox
     if @options.slick?
       if typeof @options.slick is 'function'
         # TODO: support element's index
-        @options.slick @$modalElement
+        @slick = @options.slick @$modalElement
       else
         @slick = @$modalElement.find('.slick-lightbox-slick').slick $.extend({}, @options.slick, additional)
     else
@@ -245,9 +245,10 @@ $.fn.slickLightbox = (options) ->
   ### Fires the plugin. ###
   options = $.extend {}, defaults, options
   $(this).each ->
-    new SlickLightbox this, options
+    this.slickLightbox = new SlickLightbox this, options
   return this
 
 $.fn.unslickLightbox = ->
   ### Removes everything. ###
-  $(this).trigger 'destroy.slickLightbox'
+  $(this).trigger('destroy.slickLightbox').each ->
+    this.slickLightbox = null
