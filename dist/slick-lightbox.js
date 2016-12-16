@@ -5,9 +5,9 @@
         /*
   The core class.
    */
-        function SlickLightbox(element, options) {
+        function SlickLightbox(element, options1) {
             var slickLightbox;
-            this.options = options;
+            this.options = options1;
             /* Binds the plugin. */
             this.$element = $(element);
             this.didInit = false;
