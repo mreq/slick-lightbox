@@ -61,7 +61,7 @@ captionPosition      | various  | `'dynamic'`      | Where should the caption be
 images               | various  | `false`          | When passed an array, slick lightbox doesn't scan the elements for image URLs and uses array's values instead.
 useHistoryApi        | boolean  | `false`          | When `true`, opening the lightbox does a `history.pushState`. The plugin then listens for the `popstate` event to close the lightbox.
 layouts              | object   |                  | See [Layouts](#layouts)
-shouldOpen           | function | `null`           | Given a function, checks the return value before opening. If the function returns a falsy value, the lightbox is not opened upon clicking on the items. Accepts two arguments - the slick lightbox instance as the first, the clicked element as the second.
+shouldOpen           | function | `null`           | Given a function, checks the return value before opening. If the function returns a falsy value, the lightbox is not opened upon clicking on the items. Accepts three arguments - the slick lightbox instance as the first, the clicked element as the second and the click event as the last.
 imageMaxHeight       | number   | `0.9`            | Maximum height of the lightbox images. Relative to the window height.
 
 ## Events

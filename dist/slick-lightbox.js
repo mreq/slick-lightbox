@@ -17,7 +17,7 @@
                 e.preventDefault();
                 $clickedItem = $(this);
                 if (typeof slickLightbox.options.shouldOpen === 'function') {
-                    if (!slickLightbox.options.shouldOpen(slickLightbox, $clickedItem)) {
+                    if (!slickLightbox.options.shouldOpen(slickLightbox, $clickedItem, e)) {
                         return;
                     }
                 }
