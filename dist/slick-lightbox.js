@@ -44,10 +44,11 @@
             } else {
                 createItem = function (_this) {
                     return function (el) {
-                        var caption, src;
+                        var caption, src, slideNumber;
                         caption = _this.getElementCaption(el);
                         src = _this.getElementSrc(el);
-                        return '<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="' + src + '" />' + caption + '</div></div>';
+                        slideNumber = _this.getElementSlideNumber(el);
+                        return '<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="' + src + '" />' + caption + '<span class="slick-lightbox-slick-slide-numbers">' + slideNumber + '</span>' + '</div></div>';
                     };
                 }(this);
                 $items = this.filterOutSlickClones(this.$element.find(this.options.itemSelector));
@@ -219,6 +220,18 @@
                 return el.href;
             }
         };
+        SlickLightbox.prototype.getElementSlideNumber = function (el) {
+            /* Returns slide number for each slide based on the type of `options.slideNumber` + displays total number of slides. */
+            if (this.options.slideNumber) {
+            	if (this.options.slideNumbersTotal) {
+            		return $(el).index() + ' of ' + this.filterOutSlickClones(this.$element.find(this.options.itemSelector)).length;
+            	} else {
+            		return $(el).index();
+            	}
+            } else {
+            	return 
+            }
+        };
         SlickLightbox.prototype.unbindEvents = function () {
             /* Unbinds global events. */
             $(window).off('.slickLightbox');
@@ -287,6 +300,8 @@
         src: false,
         caption: false,
         captionPosition: 'dynamic',
+        slideNumber: false,
+        slideNumbersTotal: true,
         images: false,
         slick: {},
         useHistoryApi: false,
