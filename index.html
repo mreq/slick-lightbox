@@ -95,7 +95,7 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--></head><body
 <td>caption</td>
 <td>various</td>
 <td><code>false</code></td>
-<td>Should the images be captioned? If <code>false</code>, no caption is created. You can pass your own <strong>function</strong> accepting the element as an attribute (e.g. <code>function(element) { return $(element).doSomething(); }</code>) or a <strong>string</strong> with the name of the <code>data-attribute</code> to be fetched (<code>my-caption</code> will get the value of <code>data-my-caption</code> attribute).</td>
+<td>Should the images be captioned? If <code>false</code>, no caption is created. You can pass your own <strong>function</strong> accepting the <code>element</code> and <code>info</code> attributes (e.g. <code>function(element, info) { return $(element).doSomething(); }</code>, with <code>info</code> being an <code>{ index: itemIndex, length: itemCount }</code> object) or a <strong>string</strong> with the name of the <code>data-attribute</code> to be fetched (<code>my-caption</code> will get the value of <code>data-my-caption</code> attribute).</td>
 </tr>
 <tr>
 <td>src</td>

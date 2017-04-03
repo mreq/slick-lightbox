@@ -37,21 +37,26 @@
         };
         SlickLightbox.prototype.createModalItems = function () {
             /* Creates individual slides to be used with slick. If `options.images` array is specified, it uses it's contents, otherwise loops through elements' `options.itemSelector`. */
-            var $items, createItem, links;
+            var $items, createItem, length, links;
             if (this.options.images) {
                 links = $.map(this.options.images, function (img) {
                     return '<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="' + img + '" /></div></div>';
                 });
             } else {
+                $items = this.filterOutSlickClones(this.$element.find(this.options.itemSelector));
+                length = $items.length;
                 createItem = function (_this) {
-                    return function (el) {
-                        var caption, src;
-                        caption = _this.getElementCaption(el);
+                    return function (el, index) {
+                        var caption, info, src;
+                        info = {
+                            index: index,
+                            length: length
+                        };
+                        caption = _this.getElementCaption(el, info);
                         src = _this.getElementSrc(el);
                         return '<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="' + src + '" />' + caption + '</div></div>';
                     };
                 }(this);
-                $items = this.filterOutSlickClones(this.$element.find(this.options.itemSelector));
                 links = $.map($items, createItem);
             }
             return links;
@@ -193,7 +198,7 @@
                 }
             }
         };
-        SlickLightbox.prototype.getElementCaption = function (el) {
+        SlickLightbox.prototype.getElementCaption = function (el, info) {
             /* Returns caption for each slide based on the type of `options.caption`. */
             var c;
             if (!this.options.caption) {
@@ -202,7 +207,7 @@
             c = function () {
                 switch (typeof this.options.caption) {
                 case 'function':
-                    return this.options.caption(el);
+                    return this.options.caption(el, info);
                 case 'string':
                     return $(el).data(this.options.caption);
                 }

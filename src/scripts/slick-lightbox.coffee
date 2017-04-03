@@ -44,11 +44,17 @@ class SlickLightbox
       links = $.map @options.images, (img) ->
         """<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ img }" /></div></div>"""
     else
-      createItem = (el) =>
-        caption = @getElementCaption(el)
+      $items = @filterOutSlickClones @$element.find(@options.itemSelector)
+
+      length = $items.length
+      createItem = (el, index) =>
+        info =
+          index: index
+          length: length
+        caption = @getElementCaption(el, info)
         src = @getElementSrc(el)
         """<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ src }" />#{ caption }</div></div>"""
-      $items = @filterOutSlickClones @$element.find(@options.itemSelector)
+
       links = $.map $items, createItem
     links
 
@@ -160,12 +166,12 @@ class SlickLightbox
       if ieversion < 9
         @isIE = true
 
-  getElementCaption: (el) ->
+  getElementCaption: (el, info) ->
     ### Returns caption for each slide based on the type of `options.caption`. ###
     return ''  unless @options.caption
     c = switch typeof @options.caption
       when 'function'
-        @options.caption(el)
+        @options.caption(el, info)
       when 'string'
         $(el).data(@options.caption)
     return """<span class="slick-lightbox-slick-caption">#{ c }</span>"""
