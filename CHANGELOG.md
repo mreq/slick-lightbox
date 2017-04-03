@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/). Changelog muster from [olivierlacan/keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [0.2.8] - 2017-04-03
+### Added
+- Added the `info` argument to the `getElementCaption` function.
+- Blur clicked element so that pressing Enter doesn't cause issues.
+
 ## [0.2.7] - 2016-01-02
 ### Added
 - Added the `event` argument to the `shouldOpen` callback.
