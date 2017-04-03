@@ -22,6 +22,7 @@ class SlickLightbox
     @$element.on 'click.slickLightbox', @options.itemSelector, (e) ->
       e.preventDefault()
       $clickedItem = $(this)
+      $clickedItem.blur()
       if typeof slickLightbox.options.shouldOpen is 'function'
         return unless slickLightbox.options.shouldOpen(slickLightbox, $clickedItem, e)
       $items = slickLightbox.filterOutSlickClones slickLightbox.$element.find(slickLightbox.options.itemSelector)

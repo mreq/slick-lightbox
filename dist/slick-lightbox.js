@@ -16,6 +16,7 @@
                 var $clickedItem, $items;
                 e.preventDefault();
                 $clickedItem = $(this);
+                $clickedItem.blur();
                 if (typeof slickLightbox.options.shouldOpen === 'function') {
                     if (!slickLightbox.options.shouldOpen(slickLightbox, $clickedItem, e)) {
                         return;
