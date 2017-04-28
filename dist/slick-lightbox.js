@@ -37,10 +37,20 @@
         };
         SlickLightbox.prototype.createModalItems = function () {
             /* Creates individual slides to be used with slick. If `options.images` array is specified, it uses it's contents, otherwise loops through elements' `options.itemSelector`. */
-            var $items, createItem, length, links;
+            var $items, createItem, itemTemplate, length, links;
+            itemTemplate = function (source, lazy, lazyPlaceholder) {
+                var imgSourceParams;
+                lazyPlaceholder = lazyPlaceholder || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+                if (lazy === true) {
+                    imgSourceParams = ' data-lazy="' + source + '" src="' + lazyPlaceholder + '" ';
+                } else {
+                    imgSourceParams = ' src="' + source + '" ';
+                }
+                return '<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" ' + imgSourceParams + ' /></div></div>';
+            };
             if (this.options.images) {
                 links = $.map(this.options.images, function (img) {
-                    return '<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="' + img + '" /></div></div>';
+                    return itemTemplate(img, this.options.lazy, this.options.lazyPlaceholder);
                 });
             } else {
                 $items = this.filterOutSlickClones(this.$element.find(this.options.itemSelector));
@@ -54,7 +64,7 @@
                         };
                         caption = _this.getElementCaption(el, info);
                         src = _this.getElementSrc(el);
-                        return '<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="' + src + '" />' + caption + '</div></div>';
+                        return itemTemplate(src, _this.options.lazy, _this.options.lazyPlaceholder);
                     };
                 }(this);
                 links = $.map($items, createItem);

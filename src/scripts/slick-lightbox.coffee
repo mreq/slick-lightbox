@@ -40,9 +40,19 @@ class SlickLightbox
 
   createModalItems: ->
     ### Creates individual slides to be used with slick. If `options.images` array is specified, it uses it's contents, otherwise loops through elements' `options.itemSelector`. ###
+    # lazyPlaceholder = @options.lazyPlaceholder || 
+    itemTemplate = (source, lazy, lazyPlaceholder) ->
+      lazyPlaceholder = lazyPlaceholder || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+      if lazy == true
+        imgSourceParams = """ data-lazy="#{ source }" src="#{ lazyPlaceholder }" """
+      else
+        imgSourceParams = """ src="#{ source }" """
+      """<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" #{ imgSourceParams } /></div></div>"""
+
     if @options.images
       links = $.map @options.images, (img) ->
-        """<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ img }" /></div></div>"""
+        itemTemplate(img, @options.lazy, @options.lazyPlaceholder)
+
     else
       $items = @filterOutSlickClones @$element.find(@options.itemSelector)
 
@@ -53,7 +63,7 @@ class SlickLightbox
           length: length
         caption = @getElementCaption(el, info)
         src = @getElementSrc(el)
-        """<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" src="#{ src }" />#{ caption }</div></div>"""
+        itemTemplate(src, @options.lazy, @options.lazyPlaceholder)
 
       links = $.map $items, createItem
     links
