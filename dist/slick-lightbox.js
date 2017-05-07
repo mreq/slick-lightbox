@@ -37,20 +37,20 @@
         };
         SlickLightbox.prototype.createModalItems = function () {
             /* Creates individual slides to be used with slick. If `options.images` array is specified, it uses it's contents, otherwise loops through elements' `options.itemSelector`. */
-            var $items, createItem, itemTemplate, length, links;
-            itemTemplate = function (source, lazy, lazyPlaceholder) {
+            var $items, createItem, itemTemplate, lazyPlaceholder, length, links;
+            lazyPlaceholder = this.options.lazyPlaceholder || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+            itemTemplate = function (source, lazy) {
                 var imgSourceParams;
-                lazyPlaceholder = lazyPlaceholder || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
                 if (lazy === true) {
                     imgSourceParams = ' data-lazy="' + source + '" src="' + lazyPlaceholder + '" ';
                 } else {
                     imgSourceParams = ' src="' + source + '" ';
                 }
-                return '<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" ' + imgSourceParams + ' /></div></div>';
+                return '<div class="slick-lightbox-slick-item">\n  <div class="slick-lightbox-slick-item-inner">\n    <img class="slick-lightbox-slick-img" ' + imgSourceParams + ' />\n  </div>\n</div>';
             };
             if (this.options.images) {
                 links = $.map(this.options.images, function (img) {
-                    return itemTemplate(img, this.options.lazy, this.options.lazyPlaceholder);
+                    return itemTemplate(img, this.options.lazy);
                 });
             } else {
                 $items = this.filterOutSlickClones(this.$element.find(this.options.itemSelector));
@@ -64,7 +64,7 @@
                         };
                         caption = _this.getElementCaption(el, info);
                         src = _this.getElementSrc(el);
-                        return itemTemplate(src, _this.options.lazy, _this.options.lazyPlaceholder);
+                        return itemTemplate(src, _this.options.lazy);
                     };
                 }(this);
                 links = $.map($items, createItem);
@@ -86,6 +86,9 @@
             /* Runs slick by default, using `options.slick` if provided. If `options.slick` is a function, it gets fired instead of us initializing slick. Merges in initialSlide option. */
             var additional;
             additional = { initialSlide: index };
+            if (this.options.lazy) {
+                additional.lazyLoad = 'ondemand';
+            }
             if (this.options.slick != null) {
                 if (typeof this.options.slick === 'function') {
                     this.slick = this.options.slick(this.$modalElement);
@@ -308,7 +311,8 @@
         useHistoryApi: false,
         layouts: { closeButton: '<button type="button" class="slick-lightbox-close"></button>' },
         shouldOpen: null,
-        imageMaxHeight: 0.9
+        imageMaxHeight: 0.9,
+        lazy: false
     };
     $.fn.slickLightbox = function (options) {
         /* Fires the plugin. */
