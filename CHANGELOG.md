@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/). Changelog muster from [olivierlacan/keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [0.2.9] - 2017-05-07
+### Added
+- Added lazyload support. Thanks @avbobylev
+
 ## [0.2.8] - 2017-04-03
 ### Added
 - Added the `info` argument to the `getElementCaption` function.
