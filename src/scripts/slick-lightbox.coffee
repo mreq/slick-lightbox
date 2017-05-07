@@ -40,18 +40,23 @@ class SlickLightbox
 
   createModalItems: ->
     ### Creates individual slides to be used with slick. If `options.images` array is specified, it uses it's contents, otherwise loops through elements' `options.itemSelector`. ###
-    # lazyPlaceholder = @options.lazyPlaceholder || 
-    itemTemplate = (source, lazy, lazyPlaceholder) ->
-      lazyPlaceholder = lazyPlaceholder || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+    lazyPlaceholder = @options.lazyPlaceholder || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+
+    itemTemplate = (source, lazy) ->
       if lazy == true
         imgSourceParams = """ data-lazy="#{ source }" src="#{ lazyPlaceholder }" """
       else
         imgSourceParams = """ src="#{ source }" """
-      """<div class="slick-lightbox-slick-item"><div class="slick-lightbox-slick-item-inner"><img class="slick-lightbox-slick-img" #{ imgSourceParams } /></div></div>"""
+      """
+        <div class="slick-lightbox-slick-item">
+          <div class="slick-lightbox-slick-item-inner">
+            <img class="slick-lightbox-slick-img" #{ imgSourceParams } />
+          </div>
+        </div>"""
 
     if @options.images
       links = $.map @options.images, (img) ->
-        itemTemplate(img, @options.lazy, @options.lazyPlaceholder)
+        itemTemplate(img, @options.lazy)
 
     else
       $items = @filterOutSlickClones @$element.find(@options.itemSelector)
@@ -63,7 +68,7 @@ class SlickLightbox
           length: length
         caption = @getElementCaption(el, info)
         src = @getElementSrc(el)
-        itemTemplate(src, @options.lazy, @options.lazyPlaceholder)
+        itemTemplate(src, @options.lazy)
 
       links = $.map $items, createItem
     links
@@ -88,8 +93,9 @@ class SlickLightbox
   initSlick: (index) ->
     ### Runs slick by default, using `options.slick` if provided. If `options.slick` is a function, it gets fired instead of us initializing slick. Merges in initialSlide option. ###
     # We need to start with the `index`-th item.
-    additional =
-      initialSlide: index
+    additional = { initialSlide: index }
+    additional.lazyLoad = 'ondemand' if @options.lazy
+
     if @options.slick?
       if typeof @options.slick is 'function'
         # TODO: support element's index
@@ -256,6 +262,7 @@ defaults =
     closeButton: """<button type="button" class="slick-lightbox-close"></button>"""
   shouldOpen: null
   imageMaxHeight: 0.9
+  lazy: false
 
 # jQuery methods
 $.fn.slickLightbox = (options) ->
