@@ -199,6 +199,40 @@
   });
 &lt;/script&gt;</code></pre>
 
+      <h2 id="lazy">Lazyloading</h2>
+      <div id="lazy-demo" class="row">
+        <div class="col-xs-2"><a href="http://placekitten.com/1000/600?foo=bar" target="_blank" class="thumbnail"><img src="http://placekitten.com/1000/600" alt=""></a></div>
+        <div class="col-xs-2"><a href="http://placekitten.com/1010/606?foo=bar" target="_blank" class="thumbnail"><img src="http://placekitten.com/1010/606" alt=""></a></div>
+        <div class="col-xs-2"><a href="http://placekitten.com/1060/636?foo=bar" target="_blank" class="thumbnail"><img src="http://placekitten.com/1060/636" alt=""></a></div>
+        <div class="col-xs-2"><a href="http://placekitten.com/1080/600?foo=bar" target="_blank" class="thumbnail"><img src="http://placekitten.com/1080/600" alt=""></a></div>
+        <div class="col-xs-2"><a href="http://placekitten.com/1100/606?foo=bar" target="_blank" class="thumbnail"><img src="http://placekitten.com/1100/606" alt=""></a></div>
+        <div class="col-xs-2"><a href="http://placekitten.com/1200/636?foo=bar" target="_blank" class="thumbnail"><img src="http://placekitten.com/1200/636" alt=""></a></div>
+      </div>
+      <script type="text/javascript">
+        $('#lazy-demo').slickLightbox({
+          lazy: true,
+          slick: {
+            lazyload: 'ondemand'
+          }
+        });
+      </script>
+      <pre><code class="lang-html">&lt;div id=&quot;lazy-demo&quot; class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-xs-2&quot;&gt;&lt;a href=&quot;http://placekitten.com/1000/600?foo=bar&quot; target=&quot;_blank&quot; class=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://placekitten.com/1000/600&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+  &lt;div class=&quot;col-xs-2&quot;&gt;&lt;a href=&quot;http://placekitten.com/1010/606?foo=bar&quot; target=&quot;_blank&quot; class=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://placekitten.com/1010/606&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+  &lt;div class=&quot;col-xs-2&quot;&gt;&lt;a href=&quot;http://placekitten.com/1060/636?foo=bar&quot; target=&quot;_blank&quot; class=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://placekitten.com/1060/636&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+  &lt;div class=&quot;col-xs-2&quot;&gt;&lt;a href=&quot;http://placekitten.com/1080/600?foo=bar&quot; target=&quot;_blank&quot; class=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://placekitten.com/1080/600&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+  &lt;div class=&quot;col-xs-2&quot;&gt;&lt;a href=&quot;http://placekitten.com/1100/606?foo=bar&quot; target=&quot;_blank&quot; class=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://placekitten.com/1100/606&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+  &lt;div class=&quot;col-xs-2&quot;&gt;&lt;a href=&quot;http://placekitten.com/1200/636?foo=bar&quot; target=&quot;_blank&quot; class=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://placekitten.com/1200/636&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(&#039;#lazy-demo&#039;).slickLightbox({
+    lazy: true,
+    slick: {
+      lazyload: &#039;ondemand&#039;
+    }
+  });
+&lt;/script&gt;</code></pre>
+
     </div>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>

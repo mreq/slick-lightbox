@@ -63,6 +63,8 @@ useHistoryApi        | boolean  | `false`          | When `true`, opening the li
 layouts              | object   |                  | See [Layouts](#layouts)
 shouldOpen           | function | `null`           | Given a function, checks the return value before opening. If the function returns a falsy value, the lightbox is not opened upon clicking on the items. Accepts three arguments - the slick lightbox instance as the first, the clicked element as the second and the click event as the last.
 imageMaxHeight       | number   | `0.9`            | Maximum height of the lightbox images. Relative to the window height.
+lazy                 | boolean  | `false`          | Should the images be lazyloaded? 
+lazyPlaceholder      | string   | `null`           | Path to lazyloading placeholder. Defaults to a blank gif.
 
 ## Events
 
