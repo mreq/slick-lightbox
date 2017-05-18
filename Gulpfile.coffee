@@ -3,12 +3,15 @@
 gulp     = require 'gulp'
 coffee   = require 'gulp-coffee'
 cssmin   = require 'gulp-cssmin'
+concat   = require 'gulp-concat'
+clean    = require 'gulp-clean'
 ecstatic = require 'ecstatic'
 gutil    = require 'gulp-util'
 http     = require 'http'
 sass     = require 'gulp-sass'
 shell    = require 'gulp-shell'
 uglify   = require 'gulp-uglifyjs'
+qunit    = require 'node-qunit-phantomjs'
 wrapJS   = require 'gulp-wrap-js'
 
 #############################
@@ -42,6 +45,28 @@ gulp.task 'uglify', ->
 gulp.task 'coffeedoc', shell.task(['coffeedoc src/scripts/slick-lightbox.coffee'])
 
 gulp.task 'buildGHPages', shell.task(['jade index.jade'])
+
+#############################
+
+gulp.task 'testClean', ->
+  gulp
+    .src './test/tmp'
+    .pipe clean()
+
+gulp.task 'testCoffee', ['testClean'], ->
+  gulp
+    .src ['./test/boilerplate.coffee', './test/tests/*.coffee']
+    .pipe coffee( bare: true ).on('error', gutil.log)
+    .pipe gulp.dest('./test/tmp/')
+
+gulp.task 'testConcat', ['testCoffee'], ->
+  gulp
+    .src './test/tmp/*.js'
+    .pipe concat('tests.js')
+    .pipe gulp.dest('./test/')
+
+gulp.task 'test', ['testConcat', 'base'], ->
+  qunit './test/test.html', { verbose: true }
 
 #############################
 

@@ -7,3 +7,7 @@ src/bower_components/jquery/*
 !src/bower_components/jquery/dist
 
 *.sublime-*
+
+test/tmp/*.js
+
+/test/tests.js
