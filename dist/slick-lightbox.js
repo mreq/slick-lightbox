@@ -39,14 +39,14 @@
             /* Creates individual slides to be used with slick. If `options.images` array is specified, it uses it's contents, otherwise loops through elements' `options.itemSelector`. */
             var $items, createItem, itemTemplate, lazyPlaceholder, length, links;
             lazyPlaceholder = this.options.lazyPlaceholder || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-            itemTemplate = function (source, lazy) {
+            itemTemplate = function (source, caption, lazy) {
                 var imgSourceParams;
                 if (lazy === true) {
                     imgSourceParams = ' data-lazy="' + source + '" src="' + lazyPlaceholder + '" ';
                 } else {
                     imgSourceParams = ' src="' + source + '" ';
                 }
-                return '<div class="slick-lightbox-slick-item">\n  <div class="slick-lightbox-slick-item-inner">\n    <img class="slick-lightbox-slick-img" ' + imgSourceParams + ' />\n  </div>\n</div>';
+                return '<div class="slick-lightbox-slick-item">\n  <div class="slick-lightbox-slick-item-inner">\n    <img class="slick-lightbox-slick-img" ' + imgSourceParams + ' />\n    ' + caption + '\n  </div>\n</div>';
             };
             if (this.options.images) {
                 links = $.map(this.options.images, function (img) {
@@ -64,7 +64,7 @@
                         };
                         caption = _this.getElementCaption(el, info);
                         src = _this.getElementSrc(el);
-                        return itemTemplate(src, _this.options.lazy);
+                        return itemTemplate(src, caption, _this.options.lazy);
                     };
                 }(this);
                 links = $.map($items, createItem);
