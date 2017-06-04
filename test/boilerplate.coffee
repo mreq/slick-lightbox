@@ -5,7 +5,9 @@ window.test = (caption, fn) ->
 window.create = (sizes, options = {}) ->
   html = $.map sizes, (size) ->
     """
-      <a href="http://placekitten.com/#{size}"><img src="http://placekitten.com/#{size}"></a>
+      <a href="http://placekitten.com/#{size}">
+        <img src="http://placekitten.com/#{size}">
+      </a>
     """
 
   $wrap = $("<div>#{html}</div>")
