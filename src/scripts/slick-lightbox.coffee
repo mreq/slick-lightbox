@@ -42,7 +42,7 @@ class SlickLightbox
     ### Creates individual slides to be used with slick. If `options.images` array is specified, it uses it's contents, otherwise loops through elements' `options.itemSelector`. ###
     lazyPlaceholder = @options.lazyPlaceholder || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
-    itemTemplate = (source, lazy) ->
+    itemTemplate = (source, caption, lazy) ->
       if lazy == true
         imgSourceParams = """ data-lazy="#{ source }" src="#{ lazyPlaceholder }" """
       else
@@ -51,6 +51,7 @@ class SlickLightbox
         <div class="slick-lightbox-slick-item">
           <div class="slick-lightbox-slick-item-inner">
             <img class="slick-lightbox-slick-img" #{ imgSourceParams } />
+            #{ caption }
           </div>
         </div>"""
 
@@ -68,7 +69,7 @@ class SlickLightbox
           length: length
         caption = @getElementCaption(el, info)
         src = @getElementSrc(el)
-        itemTemplate(src, @options.lazy)
+        itemTemplate(src, caption, @options.lazy)
 
       links = $.map $items, createItem
     links
