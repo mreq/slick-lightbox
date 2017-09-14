@@ -1,5 +1,7 @@
 # slick-lightbox
 
+[![CDNJS](https://img.shields.io/cdnjs/v/slick-lightbox.svg)](https://cdnjs.com/libraries/slick-lightbox)
+
 A lightbox wrapper for Ken's amazing slick carousel. Credits go to [kenwheeler](https://github.com/kenwheeler) for doing the [hard work](https://github.com/kenwheeler/slick).
 
 ## Usage
