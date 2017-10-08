@@ -12,6 +12,18 @@ Install via bower.
 bower install -S slick-lightbox
 ```
 
+**OR**
+
+Add to Gemfile (if using Rails).
+```
+gem 'slick-lightbox-rails', '>= 0.0.1'
+```
+
+Run bundler.
+```
+bundle install
+```
+
 Make sure you include CSS for both slick and slick-lightbox. Example HTML:
 
 ```html
