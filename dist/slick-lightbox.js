@@ -49,9 +49,11 @@
                 return '<div class="slick-lightbox-slick-item">\n  <div class="slick-lightbox-slick-item-inner">\n    <img class="slick-lightbox-slick-img" ' + imgSourceParams + ' />\n    ' + caption + '\n  </div>\n</div>';
             };
             if (this.options.images) {
-                links = $.map(this.options.images, function (img) {
-                    return itemTemplate(img, this.options.lazy);
-                });
+                links = $.map(this.options.images, function (_this) {
+                    return function (img) {
+                        return itemTemplate(img, _this.options.lazy);
+                    };
+                }(this));
             } else {
                 $items = this.filterOutSlickClones(this.$element.find(this.options.itemSelector));
                 length = $items.length;
