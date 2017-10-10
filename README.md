@@ -4,25 +4,29 @@
 
 A lightbox wrapper for Ken's amazing slick carousel. Credits go to [kenwheeler](https://github.com/kenwheeler) for doing the [hard work](https://github.com/kenwheeler/slick).
 
-## Usage
+## Setup
 
-Install via bower.
+### Bower
 
 ```
 bower install -S slick-lightbox
 ```
 
-**OR**
+### Ruby on Rails
 
-Add to Gemfile (if using Rails).
+Use the [slick-lightbox-rails](https://github.com/jwir3/slick-lightbox-rails) gem. Add to Gemfile.
+
 ```
 gem 'slick-lightbox-rails', '>= 0.0.1'
 ```
 
 Run bundler.
+
 ```
 bundle install
 ```
+
+## Usage
 
 Make sure you include CSS for both slick and slick-lightbox. Example HTML:
 
@@ -119,3 +123,7 @@ console.log('My slickLightbox instance:', $('#my-element')[0].slickLightbox)
 // once a lightbox is opened
 console.log('My slick instance:', $('#my-element')[0].slickLightbox.slick)
 ```
+
+## Contributing
+
+Edit the coffee source please. Use gulp to build.
