@@ -21,11 +21,19 @@ class SlickLightbox
     slickLightbox = this
     @$element.on 'click.slickLightbox', @options.itemSelector, (e) ->
       e.preventDefault()
+
       $clickedItem = $(this)
       $clickedItem.blur()
+
       if typeof slickLightbox.options.shouldOpen is 'function'
         return unless slickLightbox.options.shouldOpen(slickLightbox, $clickedItem, e)
-      $items = slickLightbox.filterOutSlickClones slickLightbox.$element.find(slickLightbox.options.itemSelector)
+
+      $items = slickLightbox.$element.find(slickLightbox.options.itemSelector)
+
+      if slickLightbox.elementIsSlick()
+        $items = slickLightbox.filterOutSlickClones($items)
+        $clickedItem = slickLightbox.handlePossibleCloneClick($clickedItem, $items)
+
       slickLightbox.init $items.index($clickedItem)
 
   init: (index) ->
@@ -60,7 +68,7 @@ class SlickLightbox
         itemTemplate(img, @options.lazy)
 
     else
-      $items = @filterOutSlickClones @$element.find(@options.itemSelector)
+      $items = @filterOutSlickClones(@$element.find(@options.itemSelector))
 
       length = $items.length
       createItem = (el, index) =>
@@ -240,10 +248,19 @@ class SlickLightbox
 
   filterOutSlickClones: ($items) ->
     ### Removes all slick clones from the set of elements. Only does so, if the target element is a slick slider. ###
-    return $items unless @$element.hasClass('slick-slider')
+    return $items unless @elementIsSlick()
     $items = $items.filter ->
       $item = $(this)
       not $item.hasClass('slick-cloned') and $item.parents('.slick-cloned').length is 0
+
+  handlePossibleCloneClick: ($clickedItem, $items) ->
+    return $clickedItem unless @elementIsSlick()
+    return $clickedItem unless $clickedItem.closest('.slick-slide').hasClass('slick-cloned')
+    href = $clickedItem.attr('href')
+    $items.filter(-> $(this).attr('href') is href).first()
+
+  elementIsSlick: ->
+    @$element.hasClass('slick-slider')
 
 # jQuery defaults
 defaults =

@@ -22,7 +22,11 @@
                         return;
                     }
                 }
-                $items = slickLightbox.filterOutSlickClones(slickLightbox.$element.find(slickLightbox.options.itemSelector));
+                $items = slickLightbox.$element.find(slickLightbox.options.itemSelector);
+                if (slickLightbox.elementIsSlick()) {
+                    $items = slickLightbox.filterOutSlickClones($items);
+                    $clickedItem = slickLightbox.handlePossibleCloneClick($clickedItem, $items);
+                }
                 return slickLightbox.init($items.index($clickedItem));
             });
         }
@@ -287,7 +291,7 @@
         };
         SlickLightbox.prototype.filterOutSlickClones = function ($items) {
             /* Removes all slick clones from the set of elements. Only does so, if the target element is a slick slider. */
-            if (!this.$element.hasClass('slick-slider')) {
+            if (!this.elementIsSlick()) {
                 return $items;
             }
             return $items = $items.filter(function () {
@@ -295,6 +299,22 @@
                 $item = $(this);
                 return !$item.hasClass('slick-cloned') && $item.parents('.slick-cloned').length === 0;
             });
+        };
+        SlickLightbox.prototype.handlePossibleCloneClick = function ($clickedItem, $items) {
+            var href;
+            if (!this.elementIsSlick()) {
+                return $clickedItem;
+            }
+            if (!$clickedItem.closest('.slick-slide').hasClass('slick-cloned')) {
+                return $clickedItem;
+            }
+            href = $clickedItem.attr('href');
+            return $items.filter(function () {
+                return $(this).attr('href') === href;
+            }).first();
+        };
+        SlickLightbox.prototype.elementIsSlick = function () {
+            return this.$element.hasClass('slick-slider');
         };
         return SlickLightbox;
     }();

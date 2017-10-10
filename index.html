@@ -5,15 +5,16 @@ h2 { margin-top: 30px; }
 script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--></head><body><nav class="navbar navbar-default"><div class="container-fluid"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/slick-lightbox/" class="navbar-brand">Slick lightbox</a></div><div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="#usage">Usage</a></li><li><a href="#options">Options</a></li><li><a href="#events">Events</a></li><li><a href="docs/">Docs</a></li><li><a href="demo/">Demo</a></li></ul></div></div></nav><div class="container"><h1 id="slick-lightbox">slick-lightbox</h1>
 <p><a href="https://cdnjs.com/libraries/slick-lightbox"><img src="https://img.shields.io/cdnjs/v/slick-lightbox.svg" alt="CDNJS"></a></p>
 <p>A lightbox wrapper for Ken&#39;s amazing slick carousel. Credits go to <a href="https://github.com/kenwheeler">kenwheeler</a> for doing the <a href="https://github.com/kenwheeler/slick">hard work</a>.</p>
-<h2 id="usage">Usage</h2>
-<p>Install via bower.</p>
+<h2 id="setup">Setup</h2>
+<h3 id="bower">Bower</h3>
 <pre><code>bower install -S slick-lightbox
-</code></pre><p><strong>OR</strong></p>
-<p>Add to Gemfile (if using Rails).</p>
-<pre><code>gem &#39;slick-lightbox-rails&#39;, &#39;= 0.0.1&#39;, :git =&gt; &#39;git@github.com:jwir3/slick-lightbox-rails&#39;
+</code></pre><h3 id="ruby-on-rails">Ruby on Rails</h3>
+<p>Use the <a href="https://github.com/jwir3/slick-lightbox-rails">slick-lightbox-rails</a> gem. Add to Gemfile.</p>
+<pre><code>gem &#39;slick-lightbox-rails&#39;, &#39;&gt;= 0.0.1&#39;
 </code></pre><p>Run bundler.</p>
 <pre><code>bundle install
-</code></pre><p>Make sure you include CSS for both slick and slick-lightbox. Example HTML:</p>
+</code></pre><h2 id="usage">Usage</h2>
+<p>Make sure you include CSS for both slick and slick-lightbox. Example HTML:</p>
 <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -208,4 +209,6 @@ console.log(&#39;My slickLightbox instance:&#39;, $(&#39;#my-element&#39;)[0].sl
 // once a lightbox is opened
 console.log(&#39;My slick instance:&#39;, $(&#39;#my-element&#39;)[0].slickLightbox.slick)
 </code></pre>
+<h2 id="contributing">Contributing</h2>
+<p>Edit the coffee source please. Use gulp to build.</p>
 </div><a href="https://github.com/mreq/slick-lightbox" class="gh-ribbon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script><script type="text/javascript">$('table').addClass('tablesaw tablesaw-stack').attr('data-tablesaw-mode', 'stack');</script><script src="gh-pages/javascripts/bootstrap.min.js"></script><script src="gh-pages/javascripts/tablesaw.stackonly.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script><script type="text/javascript">hljs.initHighlightingOnLoad();</script></body></html>

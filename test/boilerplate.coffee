@@ -13,10 +13,12 @@ window.create = (sizes, options = {}) ->
   $wrap = $("<div>#{html}</div>")
   $('body').append($wrap)
   $wrap.slickLightbox(options)
+
   slickLightbox = $wrap[0].slickLightbox
   $modalElement = -> slickLightbox.$modalElement
+
   return {
     $wrap
-    slickLightbox
     $modalElement
+    slickLightbox
   }

@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/). Changelog muster from [olivierlacan/keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [0.2.12] - 2017-10-10
+### Fixed
+- Handle slick clones on click. Thanks @IrvingArmenta and @othbert
+
 ## [0.2.11] - 2017-10-10
 ### Fixed
 - Fixed images option. Thanks @Vesna031
