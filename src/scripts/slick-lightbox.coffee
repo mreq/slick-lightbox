@@ -56,7 +56,7 @@ class SlickLightbox
         </div>"""
 
     if @options.images
-      links = $.map @options.images, (img) ->
+      links = $.map @options.images, (img) =>
         itemTemplate(img, @options.lazy)
 
     else

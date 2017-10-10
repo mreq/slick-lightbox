@@ -1,5 +1,5 @@
 test 'captions via data-attr', ->
-  $wrap = create(['100/50', '200/100'], {
+  { $wrap, $modalElement } = create(['100/50', '200/100'], {
     caption: 'caption'
   })
 
@@ -7,31 +7,30 @@ test 'captions via data-attr', ->
     $(el).attr('data-caption', "Caption ##{i + 1}")
 
   $wrap.find('a').first().click()
-  $lightbox = $('.slick-lightbox').last()
 
-  @equal $lightbox.find('.slick-lightbox-slick-caption').length,
-         $lightbox.find('.slick-slide').length,
+  @equal $modalElement().find('.slick-lightbox-slick-caption').length,
+         $modalElement().find('.slick-slide').length,
          'creates captions'
 
 test 'captions via function', ->
-  $wrap = create(['100/50', '200/100'], {
+  { $wrap, $modalElement } = create(['100/50', '200/100'], {
     caption: (el, info) ->
       "#{$(el).data('caption')} #{info.index + 1}/#{info.length}"
   })
 
   $wrap.find('a').attr('data-caption', 'caption base')
-
   $wrap.find('a').first().click()
-  $lightbox = $('.slick-lightbox').last()
 
-  @equal $lightbox.find('.slick-lightbox-slick-caption').length,
-         $lightbox.find('.slick-slide').length,
+  @equal $modalElement().find('.slick-lightbox-slick-caption').length,
+         $modalElement().find('.slick-slide').length,
          'creates captions'
 
-  @equal $lightbox.find('.slick-lightbox-slick-caption').first().text(),
-         'caption base 2/2',
+  $slides = $modalElement().find('.slick-slide').not('.slick-cloned')
+
+  @equal $slides.first().find('.slick-lightbox-slick-caption').text(),
+         'caption base 1/2',
          'uses info object for captions'
 
-  @equal $lightbox.find('.slick-lightbox-slick-caption').last().text(),
-         'caption base 1/2',
+  @equal $slides.last().find('.slick-lightbox-slick-caption').text(),
+         'caption base 2/2',
          'uses info object for captions'
