@@ -72,7 +72,7 @@
                 pauseOnDotsHover: false,
                 respondTo: 'window',
                 responsive: null,
-                rtl: false,
+                rtl: true,
                 slide: '',
                 slidesToShow: 1,
                 slidesToScroll: 1,
