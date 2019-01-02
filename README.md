@@ -124,6 +124,10 @@ console.log('My slickLightbox instance:', $('#my-element')[0].slickLightbox)
 console.log('My slick instance:', $('#my-element')[0].slickLightbox.slick)
 ```
 
+## Demos
+
+The [slick-lightbox demo page](https://mreq.github.io/slick-lightbox/demo/) contains various setups of slick lightbox.
+
 ## Contributing
 
 Edit the coffee source please. Use gulp to build.
