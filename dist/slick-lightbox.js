@@ -55,7 +55,7 @@
             if (this.options.images) {
                 links = $.map(this.options.images, function (_this) {
                     return function (img) {
-                        return itemTemplate(img, _this.options.lazy);
+                        return itemTemplate(img, '', _this.options.lazy);
                     };
                 }(this));
             } else {
