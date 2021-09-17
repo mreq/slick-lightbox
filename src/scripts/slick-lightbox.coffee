@@ -65,7 +65,7 @@ class SlickLightbox
 
     if @options.images
       links = $.map @options.images, (img) =>
-        itemTemplate(img, @options.lazy)
+        itemTemplate(img, '', @options.lazy)
 
     else
       $items = @filterOutSlickClones(@$element.find(@options.itemSelector))
